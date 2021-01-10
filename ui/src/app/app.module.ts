@@ -6,9 +6,10 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { ScheduleWizardModule } from './schedule-wizard/schedule-wizard.module';
+import { ScheduleComponent } from './pages/schedule/schedule.component';
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent],
+  declarations: [AppComponent, HomepageComponent, ScheduleComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
