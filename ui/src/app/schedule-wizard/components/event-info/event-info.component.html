@@ -1,14 +1,23 @@
 <h1 class="text-4xl text-center mb-6">¿Cuál es el motivo?</h1>
 <form [formGroup]="eventInfoForm" class="space-y-6">
-  <input
-    formControlName="eventTitle"
-    class="w-full p-2 border-b border-gray-300"
-    type="text"
-    placeholder="Introduzca el título"
-  />
+  <div class="space-y-2">
+    <input
+      formControlName="eventTitle"
+      class="w-full p-2 border-b border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:ring-opacity-25"
+      type="text"
+      placeholder="Introduce el título"
+      required
+    />
+    <div
+      *ngIf="eventTitle.invalid && (eventTitle.dirty || eventTitle.touched)"
+      class="text-red-700 text-sm"
+    >
+      <p>Este campo es obligatorio</p>
+    </div>
+  </div>
   <textarea
     formControlName="eventDescription"
-    class="w-full border border-gray-300 p-2 h-20 resize-none"
-    placeholder="Añadir nota"
+    class="w-full border border-gray-300 p-2 h-20 resize-none focus:outline-none focus:ring-1 focus:ring-gray-300 focus:ring-opacity-25"
+    placeholder="Añade una nota (opcional)"
   ></textarea>
 </form>

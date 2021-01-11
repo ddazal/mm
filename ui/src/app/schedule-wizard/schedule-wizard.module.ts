@@ -10,6 +10,7 @@ import { EventInfoComponent } from './components/event-info/event-info.component
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { EventAdminInfoComponent } from './components/event-admin-info/event-admin-info.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -22,6 +23,7 @@ FullCalendarModule.registerPlugins([
     CalendarComponent,
     ScheduleWizardComponent,
     EventInfoComponent,
+    EventAdminInfoComponent,
   ],
   imports: [CommonModule, FullCalendarModule, ReactiveFormsModule],
   exports: [ScheduleWizardComponent],

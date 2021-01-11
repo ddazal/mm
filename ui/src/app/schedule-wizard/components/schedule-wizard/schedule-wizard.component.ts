@@ -6,17 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./schedule-wizard.component.scss'],
 })
 export class ScheduleWizardComponent implements OnInit {
-  currentStep = 1;
-  totalSteps = 2;
+  // currentStep = 1;
+  // totalSteps = 2;
   constructor() {}
 
   ngOnInit(): void {}
 
-  goBack(): void {
-    this.currentStep -= 1;
-  }
+  // goBack(): void {
+  //   this.currentStep -= 1;
+  // }
 
-  goNext(): void {
-    this.currentStep += 1;
+  submit(): void {
+    console.log('Create meeting');
   }
 }

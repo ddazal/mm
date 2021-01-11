@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-event-info',
@@ -8,11 +8,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class EventInfoComponent implements OnInit {
   eventInfoForm = new FormGroup({
-    eventTitle: new FormControl('', Validators.required),
+    eventTitle: new FormControl('', [Validators.required]),
     eventDescription: new FormControl(''),
   });
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  get eventTitle(): AbstractControl {
+    return this.eventInfoForm.get('eventTitle');
+  }
 }
