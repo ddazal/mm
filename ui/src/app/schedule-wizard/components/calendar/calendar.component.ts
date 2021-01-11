@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import esLocale from '@fullcalendar/core/locales/es';
 import { CalendarOptions } from '@fullcalendar/angular';
-import * as moment from 'moment';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-calendar',
@@ -9,6 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
+  @Input() eventTitle: string;
   calendarEvents = [];
   calendarOptions: CalendarOptions = {
     locale: esLocale,
@@ -16,6 +17,7 @@ export class CalendarComponent implements OnInit {
     slotEventOverlap: false,
     firstDay: 0,
     allDaySlot: false,
+    slotDuration: '00:15:00',
     slotLabelFormat: {
       hour: '2-digit',
       minute: '2-digit',
@@ -25,9 +27,7 @@ export class CalendarComponent implements OnInit {
     },
     events: this.calendarEvents,
     editable: true,
-    eventClick(info) {
-      console.log(info);
-    },
+    eventClick: this.updateEvent.bind(this),
     dateClick: this.createEvent.bind(this),
   };
 
@@ -39,10 +39,14 @@ export class CalendarComponent implements OnInit {
     const start = moment(info.dateStr);
     const end = moment(start).add(1, 'hours');
     this.calendarEvents = this.calendarEvents.concat({
-      title: 'Some title',
+      title: this.eventTitle,
       start: start.format(),
       end: end.format(),
     });
     this.calendarOptions.events = this.calendarEvents;
+  }
+
+  updateEvent(info): void {
+    console.log(info);
   }
 }

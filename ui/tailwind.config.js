@@ -2,7 +2,11 @@ module.exports = {
   purge: ["./src/**/*.{html,ts}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        pacifico: ['Pacifico', 'cursive']
+      }
+    },
   },
   variants: {
     extend: {},
