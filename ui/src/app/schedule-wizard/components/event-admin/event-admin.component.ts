@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { StepComponent } from '../step.component';
 
 @Component({
-  selector: 'app-event-admin-info',
-  templateUrl: './event-admin-info.component.html',
-  styleUrls: ['./event-admin-info.component.scss'],
+  selector: 'app-event-admin',
+  templateUrl: './event-admin.component.html',
+  styleUrls: ['./event-admin.component.scss'],
 })
-export class EventAdminInfoComponent implements OnInit {
+export class EventAdminComponent implements OnInit, StepComponent {
+  @Input() data: any;
   eventAdminForm = new FormGroup({
     adminName: new FormControl('', Validators.required),
     adminEmail: new FormControl('', [
@@ -23,6 +25,10 @@ export class EventAdminInfoComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  submit(): void {
+    console.log('EventAdminInfo submitted');
+  }
 
   get adminName(): AbstractControl {
     return this.eventAdminForm.get('adminName');

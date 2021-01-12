@@ -2,13 +2,15 @@ import * as moment from 'moment';
 import esLocale from '@fullcalendar/core/locales/es';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { Component, Input, OnInit } from '@angular/core';
+import { StepComponent } from '../step.component';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, StepComponent {
+  @Input() data: any;
   @Input() eventTitle: string;
   calendarEvents = [];
   calendarOptions: CalendarOptions = {
@@ -48,5 +50,9 @@ export class CalendarComponent implements OnInit {
 
   updateEvent(info): void {
     console.log(info);
+  }
+
+  submit(): void {
+    console.log('Calendar submitted');
   }
 }

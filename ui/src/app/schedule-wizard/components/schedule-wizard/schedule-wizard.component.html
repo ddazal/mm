@@ -1,23 +1,22 @@
 <div class="py-6">
   <div class="max-w-screen-md mx-auto">
-    <!-- <p class="text-center text-lg">
-      Paso {{ currentStep }} de {{ totalSteps }}
-    </p> -->
-    <app-event-info></app-event-info>
-    <app-calendar></app-calendar>
-    <app-event-admin-info></app-event-admin-info>
+    <p class="text-center text-lg">
+      Paso {{ currentStepIndex + 1 }} de {{ totalSteps }}
+    </p>
+    <ng-template appStepHost></ng-template>
     <!-- Actions -->
     <div class="flex mt-6 justify-end space-x-4">
-      <!-- <button
-        *ngIf="currentStep > 1"
+      <button
+        *ngIf="currentStepIndex > 0"
         (click)="goBack()"
         class="button border border-gray-300"
       >
         Regresar
-      </button> -->
+      </button>
       <button
-        (click)="submit()"
-        class="bg-blue-600 text-white button focus:ring-blue-600"
+        (click)="goNext()"
+        class="bg-blue-600 text-white button focus:ring-blue-600 disabled:opacity-75 disabled:cursor-not-allowed"
+        [disabled]="isLastStep"
       >
         Continuar
       </button>

@@ -4,12 +4,15 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        pacifico: ['Pacifico', 'cursive']
-      }
+        pacifico: ["Pacifico", "cursive"],
+      },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity: ["disabled"],
+      cursor: ["disabled"],
+    },
   },
   plugins: [],
 };

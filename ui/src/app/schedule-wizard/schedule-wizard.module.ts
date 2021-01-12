@@ -5,12 +5,13 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ScheduleWizardComponent } from './components/schedule-wizard/schedule-wizard.component';
-import { EventInfoComponent } from './components/event-info/event-info.component';
+import { EventDetailsComponent } from './components/event-details/event-details.component';
 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { EventAdminInfoComponent } from './components/event-admin-info/event-admin-info.component';
+import { EventAdminComponent } from './components/event-admin/event-admin.component';
+import { StepDirective } from './directives/step.directive';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -22,8 +23,9 @@ FullCalendarModule.registerPlugins([
   declarations: [
     CalendarComponent,
     ScheduleWizardComponent,
-    EventInfoComponent,
-    EventAdminInfoComponent,
+    EventDetailsComponent,
+    EventAdminComponent,
+    StepDirective,
   ],
   imports: [CommonModule, FullCalendarModule, ReactiveFormsModule],
   exports: [ScheduleWizardComponent],
