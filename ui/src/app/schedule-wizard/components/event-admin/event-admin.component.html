@@ -1,4 +1,4 @@
-<h1 class="text-4xl text-center mb-6">¿Quién organiza el evento?</h1>
+<h1 class="text-4xl text-center mb-6 text-dodger-blue font-bold">¿Quién organiza el evento?</h1>
 <form [formGroup]="eventAdminForm" class="space-y-6">
   <div class="space-y-2">
     <input
@@ -10,7 +10,7 @@
     />
     <div
       *ngIf="adminName.invalid && (adminName.dirty || adminName.touched)"
-      class="text-red-700 text-sm"
+      class="text-lava text-sm"
     >
       <p>Este campo es obligatorio</p>
     </div>
@@ -25,7 +25,7 @@
     />
     <div
       *ngIf="adminEmail.invalid && (adminEmail.dirty || adminEmail.touched)"
-      class="text-red-700 text-sm"
+      class="text-lava text-sm"
     >
       <p *ngIf="adminEmail.errors?.required">Este campo es obligatorio</p>
       <p *ngIf="adminEmail.errors?.pattern">Este no es un email válido</p>

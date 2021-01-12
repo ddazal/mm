@@ -5,6 +5,14 @@ module.exports = {
     extend: {
       fontFamily: {
         pacifico: ["Pacifico", "cursive"],
+        montserrat: ["Montserrat", "sans-serif"],
+      },
+      colors: {
+        "black-coffe": "#32292f",
+        "dodger-blue": "#0496ff",
+        blue: "#0331f4",
+        lava: "#c42021",
+        ruby: "#d81159",
       },
     },
   },
