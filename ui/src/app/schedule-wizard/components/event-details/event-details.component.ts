@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { StepComponent } from '../step.component';
 
 @Component({
@@ -14,17 +9,19 @@ import { StepComponent } from '../step.component';
 })
 export class EventDetailsComponent implements OnInit, StepComponent {
   @Input() data: any;
-  eventInfoForm = new FormGroup({
-    eventTitle: new FormControl('', [Validators.required]),
-    eventDescription: new FormControl(''),
+  eventInfoForm = this.fb.group({
+    eventTitle: ['', [Validators.required]],
+    eventDescription: [''],
   });
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
 
-  submit(): void {
-    console.log('EventDetails submitted');
+  submit(): { isValid, data } {
+    this.eventInfoForm.markAllAsTouched();
+    const isValid = this.eventInfoForm.valid;
+    return { isValid, data: { ...this.eventInfoForm.value } };
   }
 
   get eventTitle(): AbstractControl {

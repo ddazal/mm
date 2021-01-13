@@ -26,8 +26,10 @@ export class EventAdminComponent implements OnInit, StepComponent {
 
   ngOnInit(): void {}
 
-  submit(): void {
-    console.log('EventAdminInfo submitted');
+  submit(): { isValid; data } {
+    this.eventAdminForm.markAllAsTouched();
+    const isValid = this.eventAdminForm.valid;
+    return { isValid, data: { ...this.eventAdminForm.value } };
   }
 
   get adminName(): AbstractControl {

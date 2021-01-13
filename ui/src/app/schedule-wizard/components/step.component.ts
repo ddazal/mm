@@ -1,4 +1,4 @@
 export interface StepComponent {
   data: any;
-  submit(): void;
+  submit(): { isValid: boolean; data: object };
 }

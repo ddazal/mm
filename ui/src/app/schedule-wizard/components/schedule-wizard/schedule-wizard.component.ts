@@ -18,6 +18,10 @@ export class ScheduleWizardComponent implements OnInit {
   private steps: StepItem[];
   private currentRef: StepComponent;
   currentStepIndex = 0;
+  wizardData = {
+    eventTitle: '',
+    eventDescription: '',
+  };
   @ViewChild(StepDirective, { static: true }) appStepHost: StepDirective;
 
   constructor(
@@ -44,9 +48,17 @@ export class ScheduleWizardComponent implements OnInit {
   }
 
   goNext(): void {
-    console.log(this.currentRef.submit());
-    this.currentStepIndex++;
-    this.renderComponent();
+    const { isValid, data } = this.currentRef.submit();
+    if (!isValid) {
+      return;
+    }
+    this.wizardData = { ...this.wizardData, ...data };
+    if (this.isLastStep) {
+      alert('CALL THE BACKEND');
+    } else {
+      this.currentStepIndex++;
+      this.renderComponent();
+    }
   }
 
   renderComponent(): void {

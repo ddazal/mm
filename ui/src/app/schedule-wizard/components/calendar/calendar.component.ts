@@ -52,7 +52,8 @@ export class CalendarComponent implements OnInit, StepComponent {
     console.log(info);
   }
 
-  submit(): void {
-    console.log('Calendar submitted');
+  submit(): { isValid; data } {
+    const isValid = !!this.calendarEvents.length;
+    return { isValid, data: { events: this.calendarEvents } };
   }
 }
