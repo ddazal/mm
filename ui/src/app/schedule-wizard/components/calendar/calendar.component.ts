@@ -2,7 +2,8 @@ import * as moment from 'moment';
 import esLocale from '@fullcalendar/core/locales/es';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { Component, Input, OnInit } from '@angular/core';
-import { StepComponent } from '../step.component';
+import { StepComponent } from '../../step.component';
+import { WizardData } from '../../wizard-data';
 
 @Component({
   selector: 'app-calendar',
@@ -10,9 +11,9 @@ import { StepComponent } from '../step.component';
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit, StepComponent {
-  @Input() data: any;
+  @Input() data: WizardData;
   @Input() eventTitle: string;
-  calendarEvents = [];
+  events = [];
   calendarOptions: CalendarOptions = {
     locale: esLocale,
     initialView: 'timeGridWeek',
@@ -27,7 +28,7 @@ export class CalendarComponent implements OnInit, StepComponent {
       meridiem: false,
       hour12: false,
     },
-    events: this.calendarEvents,
+    events: this.events,
     editable: true,
     eventClick: this.updateEvent.bind(this),
     dateClick: this.createEvent.bind(this),
@@ -35,17 +36,20 @@ export class CalendarComponent implements OnInit, StepComponent {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.events = this.data.events || [];
+    this.calendarOptions.events = this.events;
+  }
 
   createEvent(info): void {
     const start = moment(info.dateStr);
     const end = moment(start).add(1, 'hours');
-    this.calendarEvents = this.calendarEvents.concat({
-      title: this.eventTitle,
+    this.events = this.events.concat({
+      title: this.data.eventTitle,
       start: start.format(),
       end: end.format(),
     });
-    this.calendarOptions.events = this.calendarEvents;
+    this.calendarOptions.events = this.events;
   }
 
   updateEvent(info): void {
@@ -53,7 +57,7 @@ export class CalendarComponent implements OnInit, StepComponent {
   }
 
   submit(): { isValid; data } {
-    const isValid = !!this.calendarEvents.length;
-    return { isValid, data: { events: this.calendarEvents } };
+    const isValid = !!this.events.length;
+    return { isValid, data: { events: this.events } };
   }
 }

@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { StepComponent } from '../step.component';
+import { StepComponent } from '../../step.component';
+import { WizardData } from '../../wizard-data';
 
 @Component({
   selector: 'app-event-admin',
@@ -13,18 +15,23 @@ import { StepComponent } from '../step.component';
   styleUrls: ['./event-admin.component.scss'],
 })
 export class EventAdminComponent implements OnInit, StepComponent {
-  @Input() data: any;
-  eventAdminForm = new FormGroup({
-    adminName: new FormControl('', Validators.required),
-    adminEmail: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-    ]),
-  });
+  @Input() data: WizardData;
+  eventAdminForm: FormGroup;
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.eventAdminForm = this.fb.group({
+      adminName: [this.data.adminName || '', Validators.required],
+      adminEmail: [
+        this.data.adminEmail || '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
+    });
+  }
 
   submit(): { isValid; data } {
     this.eventAdminForm.markAllAsTouched();

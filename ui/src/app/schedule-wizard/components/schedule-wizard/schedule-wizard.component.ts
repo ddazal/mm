@@ -5,9 +5,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { StepDirective } from '../../directives/step.directive';
-import { StepItem } from '../step-item';
-import { StepComponent } from '../step.component';
+import { StepItem } from '../../step-item';
+import { StepComponent } from '../../step.component';
 import { StepService } from '../../service/step.service';
+import { WizardData } from '../../wizard-data';
 
 @Component({
   selector: 'app-schedule-wizard',
@@ -18,9 +19,12 @@ export class ScheduleWizardComponent implements OnInit {
   private steps: StepItem[];
   private currentRef: StepComponent;
   currentStepIndex = 0;
-  wizardData = {
+  wizardData: WizardData = {
     eventTitle: '',
     eventDescription: '',
+    events: [],
+    adminName: '',
+    adminEmail: '',
   };
   @ViewChild(StepDirective, { static: true }) appStepHost: StepDirective;
 
@@ -54,7 +58,8 @@ export class ScheduleWizardComponent implements OnInit {
     }
     this.wizardData = { ...this.wizardData, ...data };
     if (this.isLastStep) {
-      alert('CALL THE BACKEND');
+      console.log(this.wizardData);
+      alert('Check wizard data on console');
     } else {
       this.currentStepIndex++;
       this.renderComponent();
@@ -74,7 +79,8 @@ export class ScheduleWizardComponent implements OnInit {
     const componentRef = viewContainerRef.createComponent<StepComponent>(
       componentFactory
     );
-    componentRef.instance.data = stepItem.data;
+    // pass wizardData
+    componentRef.instance.data = this.wizardData;
     this.currentRef = componentRef.instance;
   }
 }

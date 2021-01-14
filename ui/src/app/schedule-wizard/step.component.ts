@@ -1,4 +1,6 @@
+import { WizardData } from './wizard-data';
+
 export interface StepComponent {
-  data: any;
+  data: WizardData;
   submit(): { isValid: boolean; data: object };
 }
