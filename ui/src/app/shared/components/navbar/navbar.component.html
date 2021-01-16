@@ -1,5 +1,5 @@
 <nav
-  class="border-b border-gray-300 py-6 flex flex-col md:flex-row md:items-center md:justify-between"
+  class="py-6 flex flex-col md:flex-row md:items-center md:justify-between"
 >
   <div class="flex w-full justify-between md:w-auto">
     <a
@@ -9,7 +9,7 @@
       Meeting-o-Matic
     </a>
     <button
-      class="md:hidden text-black-coffe focus:outline-none"
+      class="md:hidden focus:outline-none"
       (click)="toggleMenu()"
     >
       <svg
@@ -45,7 +45,7 @@
     </button>
   </div>
   <ul
-    class="flex-col pt-3 space-y-2 md:flex md:flex-row md:items-center md:space-x-4 md:space-y-0 md:pt-0"
+    class="flex-col pt-3 space-y-2 text-sm md:flex md:flex-row md:items-center md:space-x-4 md:space-y-0 md:pt-0"
     [class.hidden]="!toggled"
     [class.flex]="toggled"
   >
@@ -56,7 +56,7 @@
       <a href="#">Inicia sesión</a>
     </li>
     <li>
-      <a href="#" class="border px-2 py-1 border-blue text-blue"
+      <a href="#" class="px-2 py-1 bg-blue text-white font-semibold"
         >Crea una cuenta</a
       >
     </li>
