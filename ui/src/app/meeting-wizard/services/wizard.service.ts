@@ -21,8 +21,7 @@ export class WizardService {
     return this.data;
   }
 
-  updateData(data: Meeting): Meeting {
+  updateData(data: Meeting): void {
     this.data = data;
-    return this.data;
   }
 }

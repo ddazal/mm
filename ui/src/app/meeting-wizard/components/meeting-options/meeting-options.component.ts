@@ -41,7 +41,7 @@ export class MeetingOptionsComponent implements OnInit, StepComponent {
     dateClick: this.createEvent.bind(this),
   };
 
-  constructor() {}
+  constructor(private ws: WizardService) {}
 
   ngOnInit(): void {
     this.events = this.data.options || [];
@@ -57,13 +57,18 @@ export class MeetingOptionsComponent implements OnInit, StepComponent {
       start: start.format(),
       end: end.format(),
     });
-    this.calendarOptions.events = this.events;
+    this.updateCalendarEvents();
   }
 
   updateEvent({ event }): void {
     const eventIndex = this.events.findIndex((e) => e.id === event.id);
     const { id, title, start, end } = event;
     this.events.splice(eventIndex, 1, { id, title, start, end });
+    this.updateCalendarEvents();
+  }
+
+  updateCalendarEvents(): void {
+    this.ws.updateData({ ...this.data, options: this.events });
     this.calendarOptions.events = this.events;
   }
 

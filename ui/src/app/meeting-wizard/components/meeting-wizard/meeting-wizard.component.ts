@@ -32,7 +32,6 @@ export class MeetingWizardComponent implements OnInit {
 
   ngOnInit(): void {
     this.steps = this.ss.getSteps();
-    this.wizardData = this.ws.getData();
     this.renderComponent();
   }
 
@@ -54,11 +53,12 @@ export class MeetingWizardComponent implements OnInit {
     if (!isValid) {
       return;
     }
-    this.wizardData = this.ws.updateData({ ...this.wizardData, ...data });
+    this.ws.updateData({ ...this.wizardData, ...data });
 
     if (this.isLastStep) {
+      const meetingData = this.ws.getData();
       alert('Check wizard data on console');
-      console.log(this.wizardData);
+      console.log(meetingData);
       return;
     }
 
@@ -79,7 +79,8 @@ export class MeetingWizardComponent implements OnInit {
     const componentRef = viewContainerRef.createComponent<StepComponent>(
       componentFactory
     );
-    // pass wizardData
+    // read and pass wizardData
+    this.wizardData = this.ws.getData();
     componentRef.instance.data = this.wizardData;
     this.currentRef = componentRef.instance;
   }
