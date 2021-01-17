@@ -2,14 +2,14 @@
 <form [formGroup]="eventAdminForm" class="space-y-6">
   <div class="space-y-2">
     <input
-      formControlName="adminName"
+      formControlName="name"
       class="w-full p-2 border-b border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:ring-opacity-25"
       type="text"
       placeholder="Nombre"
       required
     />
     <div
-      *ngIf="adminName.invalid && (adminName.dirty || adminName.touched)"
+      *ngIf="name.invalid && (name.dirty || name.touched)"
       class="text-lava text-sm"
     >
       <p>Este campo es obligatorio</p>
@@ -17,18 +17,18 @@
   </div>
   <div class="space-y-2">
     <input
-      formControlName="adminEmail"
+      formControlName="email"
       class="w-full p-2 border-b border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:ring-opacity-25"
       type="email"
       placeholder="Correo electrónico"
       required
     />
     <div
-      *ngIf="adminEmail.invalid && (adminEmail.dirty || adminEmail.touched)"
+      *ngIf="email.invalid && (email.dirty || email.touched)"
       class="text-lava text-sm"
     >
-      <p *ngIf="adminEmail.errors?.required">Este campo es obligatorio</p>
-      <p *ngIf="adminEmail.errors?.pattern">Este no es un email válido</p>
+      <p *ngIf="email.errors?.required">Este campo es obligatorio</p>
+      <p *ngIf="email.errors?.pattern">Este no es un email válido</p>
     </div>
   </div>
 </form>

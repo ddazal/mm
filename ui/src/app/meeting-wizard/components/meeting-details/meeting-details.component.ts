@@ -5,23 +5,23 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { StepComponent } from '../../step.component';
-import { WizardData } from '../../wizard-data';
+import { StepComponent } from '../../models/step-component';
+import { Meeting } from '../../models/meeting';
 
 @Component({
-  selector: 'app-event-details',
-  templateUrl: './event-details.component.html',
+  selector: 'app-meeting-details',
+  templateUrl: './meeting-details.component.html',
 })
-export class EventDetailsComponent implements OnInit, StepComponent {
-  @Input() data: WizardData;
+export class MeetingDetailsComponent implements OnInit, StepComponent {
+  @Input() data: Meeting;
   eventInfoForm: FormGroup;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.eventInfoForm = this.fb.group({
-      eventTitle: [this.data.eventTitle || '', [Validators.required]],
-      eventDescription: [this.data.eventDescription || ''],
+      title: [this.data.title || '', [Validators.required]],
+      description: [this.data.description || ''],
     });
   }
 
@@ -31,7 +31,7 @@ export class EventDetailsComponent implements OnInit, StepComponent {
     return { isValid, data: { ...this.eventInfoForm.value } };
   }
 
-  get eventTitle(): AbstractControl {
-    return this.eventInfoForm.get('eventTitle');
+  get title(): AbstractControl {
+    return this.eventInfoForm.get('title');
   }
 }

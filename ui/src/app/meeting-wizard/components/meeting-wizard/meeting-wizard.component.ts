@@ -1,41 +1,38 @@
 import {
   Component,
   ComponentFactoryResolver,
-  ElementRef,
   OnInit,
   ViewChild,
-  ViewContainerRef,
 } from '@angular/core';
 import { StepDirective } from '../../directives/step.directive';
-import { StepItem } from '../../step-item';
-import { StepComponent } from '../../step.component';
-import { StepService } from '../../service/step.service';
-import { WizardData } from '../../wizard-data';
+import { StepItem } from '../../models/step-item';
+import { StepComponent } from '../../models/step-component';
+import { StepService } from '../../services/step.service';
+import { Meeting } from '../../models/meeting';
+import { WizardService } from '../../services/wizard.service';
 
 @Component({
-  selector: 'app-schedule-wizard',
-  templateUrl: './schedule-wizard.component.html',
+  selector: 'app-meeting-wizard',
+  templateUrl: './meeting-wizard.component.html',
 })
-export class ScheduleWizardComponent implements OnInit {
+export class MeetingWizardComponent implements OnInit {
   private steps: StepItem[];
   private currentRef: StepComponent;
+  private wizardData: Meeting;
+
   currentStepIndex = 0;
-  wizardData: WizardData = {
-    eventTitle: '',
-    eventDescription: '',
-    events: [],
-    adminName: '',
-    adminEmail: '',
-  };
-  @ViewChild(StepDirective, { static: true }) appStepHost: StepDirective;
+
+  @ViewChild(StepDirective, { static: true }) stepHost: StepDirective;
 
   constructor(
-    private stepService: StepService,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private ss: StepService,
+    private ws: WizardService,
+    private cfr: ComponentFactoryResolver
   ) {}
 
   ngOnInit(): void {
-    this.steps = this.stepService.getSteps();
+    this.steps = this.ss.getSteps();
+    this.wizardData = this.ws.getData();
     this.renderComponent();
   }
 
@@ -57,24 +54,26 @@ export class ScheduleWizardComponent implements OnInit {
     if (!isValid) {
       return;
     }
-    this.wizardData = { ...this.wizardData, ...data };
+    this.wizardData = this.ws.updateData({ ...this.wizardData, ...data });
+
     if (this.isLastStep) {
-      console.log(this.wizardData);
       alert('Check wizard data on console');
-    } else {
-      this.currentStepIndex++;
-      this.renderComponent();
+      console.log(this.wizardData);
+      return;
     }
+
+    this.currentStepIndex++;
+    this.renderComponent();
   }
 
   renderComponent(): void {
     const stepItem = this.steps[this.currentStepIndex];
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+    const componentFactory = this.cfr.resolveComponentFactory(
       stepItem.component
     );
 
-    const viewContainerRef = this.appStepHost.viewContainerRef;
+    const viewContainerRef = this.stepHost.viewContainerRef;
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent<StepComponent>(

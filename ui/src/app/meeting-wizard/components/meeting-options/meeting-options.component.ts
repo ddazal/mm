@@ -4,18 +4,20 @@ import { CalendarOptions } from '@fullcalendar/angular';
 import { Component, Input, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 
-import { StepComponent } from '../../step.component';
-import { WizardData } from '../../wizard-data';
+import { StepComponent } from '../../models/step-component';
+import { Meeting } from '../../models/meeting';
+import { MeetingOption } from '../../models/meeting-option';
+import { WizardService } from '../../services/wizard.service';
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
+  selector: 'app-meeting-options',
+  templateUrl: './meeting-options.component.html',
 })
-export class CalendarComponent implements OnInit, StepComponent {
-  @Input() data: WizardData;
+export class MeetingOptionsComponent implements OnInit, StepComponent {
+  @Input() data: Meeting;
   @Input() eventTitle: string;
 
-  events = [];
+  events: MeetingOption[] = [];
 
   calendarOptions: CalendarOptions = {
     locale: esLocale,
@@ -42,7 +44,7 @@ export class CalendarComponent implements OnInit, StepComponent {
   constructor() {}
 
   ngOnInit(): void {
-    this.events = this.data.events || [];
+    this.events = this.data.options || [];
     this.calendarOptions.events = this.events;
   }
 
@@ -51,7 +53,7 @@ export class CalendarComponent implements OnInit, StepComponent {
     const end = moment(start).add(1, 'hours');
     this.events = this.events.concat({
       id: uuidv4(),
-      title: this.data.eventTitle,
+      title: this.data.title,
       start: start.format(),
       end: end.format(),
     });
@@ -61,12 +63,12 @@ export class CalendarComponent implements OnInit, StepComponent {
   updateEvent({ event }): void {
     const eventIndex = this.events.findIndex((e) => e.id === event.id);
     const { id, title, start, end } = event;
-    this.events.splice(eventIndex, 1, { event: { id, title, start, end } });
+    this.events.splice(eventIndex, 1, { id, title, start, end });
     this.calendarOptions.events = this.events;
   }
 
   submit(): { isValid; data } {
     const isValid = !!this.events.length;
-    return { isValid, data: { events: this.events } };
+    return { isValid, data: { options: this.events } };
   }
 }
