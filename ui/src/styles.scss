@@ -12,3 +12,7 @@
 .ng-invalid.ng-dirty {
   @apply border-lava;
 }
+
+.fc-v-event.mm-event {
+  @apply bg-blue border-blue !important;
+}
