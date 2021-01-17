@@ -12,7 +12,6 @@ import { WizardData } from '../../wizard-data';
 @Component({
   selector: 'app-event-admin',
   templateUrl: './event-admin.component.html',
-  styleUrls: ['./event-admin.component.scss'],
 })
 export class EventAdminComponent implements OnInit, StepComponent {
   @Input() data: WizardData;

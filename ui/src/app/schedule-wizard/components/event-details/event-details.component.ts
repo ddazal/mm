@@ -11,7 +11,6 @@ import { WizardData } from '../../wizard-data';
 @Component({
   selector: 'app-event-details',
   templateUrl: './event-details.component.html',
-  styleUrls: ['./event-details.component.scss'],
 })
 export class EventDetailsComponent implements OnInit, StepComponent {
   @Input() data: WizardData;

@@ -1,8 +1,10 @@
 import {
   Component,
   ComponentFactoryResolver,
+  ElementRef,
   OnInit,
   ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { StepDirective } from '../../directives/step.directive';
 import { StepItem } from '../../step-item';
@@ -13,7 +15,6 @@ import { WizardData } from '../../wizard-data';
 @Component({
   selector: 'app-schedule-wizard',
   templateUrl: './schedule-wizard.component.html',
-  styleUrls: ['./schedule-wizard.component.scss'],
 })
 export class ScheduleWizardComponent implements OnInit {
   private steps: StepItem[];

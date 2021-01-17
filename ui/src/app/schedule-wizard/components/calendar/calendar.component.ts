@@ -1,20 +1,22 @@
 import * as moment from 'moment';
 import esLocale from '@fullcalendar/core/locales/es';
-import { CalendarOptions, FullCalendarComponent } from '@fullcalendar/angular';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { CalendarOptions } from '@fullcalendar/angular';
+import { Component, Input, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
+
 import { StepComponent } from '../../step.component';
 import { WizardData } from '../../wizard-data';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit, StepComponent {
   @Input() data: WizardData;
   @Input() eventTitle: string;
+
   events = [];
+
   calendarOptions: CalendarOptions = {
     locale: esLocale,
     initialView: 'timeGridWeek',
@@ -44,8 +46,8 @@ export class CalendarComponent implements OnInit, StepComponent {
     this.calendarOptions.events = this.events;
   }
 
-  createEvent(info): void {
-    const start = moment(info.dateStr);
+  createEvent({ dateStr }): void {
+    const start = moment(dateStr);
     const end = moment(start).add(1, 'hours');
     this.events = this.events.concat({
       id: uuidv4(),
