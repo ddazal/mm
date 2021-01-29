@@ -13,6 +13,7 @@ export class WizardService {
       name: '',
       email: '',
     },
+    guests: []
   };
 
   constructor() {}

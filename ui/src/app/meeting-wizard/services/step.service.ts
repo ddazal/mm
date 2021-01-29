@@ -3,6 +3,7 @@ import { MeetingOptionsComponent } from '../components/meeting-options/meeting-o
 import { MeetingAdminComponent } from '../components/meeting-admin/meeting-admin.component';
 import { MeetingDetailsComponent } from '../components/meeting-details/meeting-details.component';
 import { StepItem } from '../models/step-item';
+import { MeetingGuestsComponent } from '../components/meeting-guests/meeting-guests.component';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,7 @@ export class StepService {
       new StepItem(MeetingDetailsComponent),
       new StepItem(MeetingOptionsComponent),
       new StepItem(MeetingAdminComponent),
+      new StepItem(MeetingGuestsComponent)
     ];
   }
 }

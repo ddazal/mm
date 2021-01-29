@@ -34,14 +34,14 @@ export class MeetingOptionsComponent implements OnInit, StepComponent {
       hour12: false,
     },
     events: this.events,
-    eventClassNames: ['mm-event'],
+    eventColor: '#0331f4',
     editable: true,
     eventResize: this.updateEvent.bind(this),
     eventDrop: this.updateEvent.bind(this),
     dateClick: this.createEvent.bind(this),
   };
 
-  constructor(private ws: WizardService) {}
+  constructor(private ws: WizardService) { }
 
   ngOnInit(): void {
     this.events = this.data.options || [];
@@ -72,8 +72,8 @@ export class MeetingOptionsComponent implements OnInit, StepComponent {
     this.calendarOptions.events = this.events;
   }
 
-  submit(): { isValid; data } {
+  submit(): { isValid; data; error } {
     const isValid = !!this.events.length;
-    return { isValid, data: { options: this.events } };
+    return { isValid, data: { options: this.events }, error: 'Crea, al menos, una opción' };
   }
 }

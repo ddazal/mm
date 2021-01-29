@@ -21,6 +21,7 @@ export class MeetingWizardComponent implements OnInit {
   private wizardData: Meeting;
 
   currentStepIndex = 0;
+  stepErrorMessage: string;
 
   @ViewChild(StepDirective, { static: true }) stepHost: StepDirective;
 
@@ -49,8 +50,9 @@ export class MeetingWizardComponent implements OnInit {
   }
 
   goNext(): void {
-    const { isValid, data } = this.currentRef.submit();
+    const { isValid, data, error } = this.currentRef.submit();
     if (!isValid) {
+      this.stepErrorMessage = error;
       return;
     }
     this.ws.updateData({ ...this.wizardData, ...data });
@@ -80,6 +82,7 @@ export class MeetingWizardComponent implements OnInit {
       componentFactory
     );
     // read and pass wizardData
+    this.stepErrorMessage = '';
     this.wizardData = this.ws.getData();
     componentRef.instance.data = this.wizardData;
     this.currentRef = componentRef.instance;

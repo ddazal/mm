@@ -25,10 +25,10 @@ export class MeetingDetailsComponent implements OnInit, StepComponent {
     });
   }
 
-  submit(): { isValid; data } {
+  submit(): { isValid; data; error } {
     this.eventInfoForm.markAllAsTouched();
     const isValid = this.eventInfoForm.valid;
-    return { isValid, data: { ...this.eventInfoForm.value } };
+    return { isValid, data: { ...this.eventInfoForm.value }, error: '' };
   }
 
   get title(): AbstractControl {

@@ -8,4 +8,5 @@ export interface Meeting {
     name: string;
     email: string;
   };
+  guests: string[];
 }
