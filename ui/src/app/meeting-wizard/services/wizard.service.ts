@@ -16,7 +16,7 @@ export class WizardService {
     guests: []
   };
 
-  constructor() {}
+  constructor() { }
 
   getData(): Meeting {
     return this.data;

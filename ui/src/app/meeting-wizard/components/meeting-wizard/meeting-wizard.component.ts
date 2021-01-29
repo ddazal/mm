@@ -10,6 +10,7 @@ import { StepComponent } from '../../models/step-component';
 import { StepService } from '../../services/step.service';
 import { Meeting } from '../../models/meeting';
 import { WizardService } from '../../services/wizard.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-meeting-wizard',
@@ -26,13 +27,14 @@ export class MeetingWizardComponent implements OnInit {
   @ViewChild(StepDirective, { static: true }) stepHost: StepDirective;
 
   constructor(
-    private ss: StepService,
-    private ws: WizardService,
+    private stepService: StepService,
+    private wizardService: WizardService,
+    private eventService: EventService,
     private cfr: ComponentFactoryResolver
   ) {}
 
   ngOnInit(): void {
-    this.steps = this.ss.getSteps();
+    this.steps = this.stepService.getSteps();
     this.renderComponent();
   }
 
@@ -55,17 +57,22 @@ export class MeetingWizardComponent implements OnInit {
       this.stepErrorMessage = error;
       return;
     }
-    this.ws.updateData({ ...this.wizardData, ...data });
+    this.wizardService.updateData({ ...this.wizardData, ...data });
 
     if (this.isLastStep) {
-      const meetingData = this.ws.getData();
-      alert('Check wizard data on console');
+      const meetingData = this.wizardService.getData();
       console.log(meetingData);
+      this.createEvent(meetingData);
       return;
     }
 
     this.currentStepIndex++;
     this.renderComponent();
+  }
+
+  async createEvent(data: Meeting): Promise<void> {
+    const user = await this.eventService.createEvent(data);
+    console.log(user);
   }
 
   renderComponent(): void {
@@ -83,7 +90,7 @@ export class MeetingWizardComponent implements OnInit {
     );
     // read and pass wizardData
     this.stepErrorMessage = '';
-    this.wizardData = this.ws.getData();
+    this.wizardData = this.wizardService.getData();
     componentRef.instance.data = this.wizardData;
     this.currentRef = componentRef.instance;
   }

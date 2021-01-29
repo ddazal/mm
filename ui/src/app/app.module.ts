@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
@@ -10,8 +11,14 @@ import { ScheduleComponent } from './pages/schedule/schedule.component';
 
 @NgModule({
   declarations: [AppComponent, HomepageComponent, ScheduleComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, MeetingWizardModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    SharedModule,
+    MeetingWizardModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
