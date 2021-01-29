@@ -1,10 +1,11 @@
+import {inject} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -14,16 +15,19 @@ import {
   patch,
   post,
   put,
-  requestBody,
+  requestBody
 } from '@loopback/rest';
 import {User} from '../models';
 import {UserRepository} from '../repositories';
+import {EmailService} from '../services';
 
 export class UserController {
   constructor(
     @repository(UserRepository)
     public userRepository: UserRepository,
-  ) {}
+    @inject('services.EmailService')
+    public emailService: EmailService
+  ) { }
 
   @post('/users', {
     responses: {
@@ -46,6 +50,13 @@ export class UserController {
     })
     user: Omit<User, 'id'>,
   ): Promise<User> {
+    try {
+      const response = await this.emailService.sendWelcomeEmail(user);
+      console.log(response);
+    } catch (error) {
+      // Log error to an application monitory system
+      console.error(error);
+    }
     return this.userRepository.create(user);
   }
 
