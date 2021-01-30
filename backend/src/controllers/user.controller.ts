@@ -56,8 +56,9 @@ export class UserController {
     } catch (error) {
       // Log error to an application monitory system
       console.error(error);
+    } finally {
+      return this.userRepository.create(user);
     }
-    return this.userRepository.create(user);
   }
 
   @get('/users/count', {
