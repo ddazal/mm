@@ -27,8 +27,8 @@ export class EmailService {
       from: process.env.SENDER_FROM,
       to: user.email,
       subject: '[Meeting-o-Matic] ¡Bienvenid@!',
-      text: `Hola, ${user.name}.`,
-      html: welcomeEmail(user.name),
+      text: welcomeEmail.text(user.name),
+      html: welcomeEmail.html(user.name),
     });
   }
 
