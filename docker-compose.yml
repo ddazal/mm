@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: './backend'
+    depends_on:
+      - db
+    networks:
+      - backend
+    environment:
+      SMTP_PORT: 1025
+      SMTP_HOST: mailhog
+      SENDER_FROM: 'test@mail.com'
+      MONGO_URI: mongodb://db:27017/meeting-o-matic
+    ports:
+      - "3000:3000"
+  db:
+    image: mongo:4.4.3-bionic
+    restart: always
+    networks:
+      - backend
+    volumes:
+      - dbdata:/data/db
+  mailhog:
+    image: mailhog/mailhog
+    networks:
+      - backend
+    ports:
+      - "8081:8025"
+
+
+networks:
+  backend:
+
+volumes:
+  dbdata:

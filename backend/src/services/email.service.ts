@@ -1,21 +1,26 @@
-import { /* inject, */ BindingScope, injectable} from '@loopback/core';
+import { /* inject, */ BindingScope, injectable } from '@loopback/core';
 import * as nodemailer from 'nodemailer';
-import {Email, NodeMailerResponse, User} from '../models';
-import {welcomeEmail} from './templates/';
+import { Email, NodeMailerResponse, User } from '../models';
+import { welcomeEmail } from './templates/';
 
-@injectable({scope: BindingScope.TRANSIENT})
+@injectable({ scope: BindingScope.TRANSIENT })
 export class EmailService {
   constructor(/* Add @inject to inject parameters */) { }
 
   private static setup() {
-    return nodemailer.createTransport({
+    let options = {
       host: process.env.SMTP_HOST,
       port: +process.env.SMTP_PORT!,
-      auth: {
-        user: process.env.SMTP_USERNAME,
-        pass: process.env.SMTP_PASSWORD,
-      },
-    });
+    }
+    if (process.env.SMTP_USER) {
+      options = Object.assign({}, options, {
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD
+        }
+      })
+    }
+    return nodemailer.createTransport(options);
   }
 
   /*
