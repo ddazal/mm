@@ -1,6 +1,6 @@
-import { MeetingOption } from './meeting-option';
+import { MeetingOption } from './meeting-option.model';
 
-export interface Meeting {
+export interface MeetingData {
   title: string;
   description?: string;
   options: MeetingOption[];

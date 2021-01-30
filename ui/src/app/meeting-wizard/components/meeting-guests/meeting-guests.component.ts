@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Meeting } from '../../models/meeting';
-import { StepComponent } from '../../models/step-component';
-import { emailPattern } from '../../models/validators';
+import { MeetingData } from '../../models/meeting-data.model';
+import { StepComponent } from '../../models/step-component.model';
+import { emailPattern } from '../../models/validators.model';
 
 @Component({
   selector: 'app-meeting-guests',
   templateUrl: './meeting-guests.component.html',
 })
 export class MeetingGuestsComponent implements OnInit, StepComponent {
-  @Input() data: Meeting;
+  @Input() data: MeetingData;
   emails = '';
 
   constructor() { }

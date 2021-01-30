@@ -5,16 +5,16 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { StepComponent } from '../../models/step-component';
-import { Meeting } from '../../models/meeting';
-import { emailPattern } from '../../models/validators';
+import { StepComponent } from '../../models/step-component.model';
+import { MeetingData } from '../../models/meeting-data.model';
+import { emailPattern } from '../../models/validators.model';
 
 @Component({
   selector: 'app-meeting-admin',
   templateUrl: './meeting-admin.component.html',
 })
 export class MeetingAdminComponent implements OnInit, StepComponent {
-  @Input() data: Meeting;
+  @Input() data: MeetingData;
   eventAdminForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }

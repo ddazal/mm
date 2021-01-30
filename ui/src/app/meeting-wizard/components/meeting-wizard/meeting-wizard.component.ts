@@ -5,12 +5,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { StepDirective } from '../../directives/step.directive';
-import { StepItem } from '../../models/step-item';
-import { StepComponent } from '../../models/step-component';
+import { StepItem } from '../../models/step-item.model';
+import { StepComponent } from '../../models/step-component.model';
 import { StepService } from '../../services/step.service';
-import { Meeting } from '../../models/meeting';
+import { MeetingData } from '../../models/meeting-data.model';
 import { WizardService } from '../../services/wizard.service';
-import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-meeting-wizard',
@@ -19,7 +18,7 @@ import { EventService } from '../../services/event.service';
 export class MeetingWizardComponent implements OnInit {
   private steps: StepItem[];
   private currentRef: StepComponent;
-  private wizardData: Meeting;
+  private wizardData: MeetingData;
 
   currentStepIndex = 0;
   stepErrorMessage: string;
@@ -29,9 +28,8 @@ export class MeetingWizardComponent implements OnInit {
   constructor(
     private stepService: StepService,
     private wizardService: WizardService,
-    private eventService: EventService,
     private cfr: ComponentFactoryResolver
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.steps = this.stepService.getSteps();
@@ -61,18 +59,12 @@ export class MeetingWizardComponent implements OnInit {
 
     if (this.isLastStep) {
       const meetingData = this.wizardService.getData();
-      console.log(meetingData);
-      this.createEvent(meetingData);
+      this.wizardService.scheduleMeeting(meetingData);
       return;
     }
 
     this.currentStepIndex++;
     this.renderComponent();
-  }
-
-  async createEvent(data: Meeting): Promise<void> {
-    const user = await this.eventService.createEvent(data);
-    console.log(user);
   }
 
   renderComponent(): void {

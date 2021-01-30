@@ -1,6 +1,6 @@
-import { Meeting } from './meeting';
+import { MeetingData } from './meeting-data.model';
 
 export interface StepComponent {
-  data: Meeting;
+  data: MeetingData;
   submit(): { isValid: boolean; data: object; error: string };
 }

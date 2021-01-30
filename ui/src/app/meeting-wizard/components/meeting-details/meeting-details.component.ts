@@ -5,15 +5,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { StepComponent } from '../../models/step-component';
-import { Meeting } from '../../models/meeting';
+import { StepComponent } from '../../models/step-component.model';
+import { MeetingData } from '../../models/meeting-data.model';
 
 @Component({
   selector: 'app-meeting-details',
   templateUrl: './meeting-details.component.html',
 })
 export class MeetingDetailsComponent implements OnInit, StepComponent {
-  @Input() data: Meeting;
+  @Input() data: MeetingData;
   eventInfoForm: FormGroup;
 
   constructor(private fb: FormBuilder) {}

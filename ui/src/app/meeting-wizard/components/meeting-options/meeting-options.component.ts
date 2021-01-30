@@ -4,9 +4,9 @@ import { CalendarOptions } from '@fullcalendar/angular';
 import { Component, Input, OnInit } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 
-import { StepComponent } from '../../models/step-component';
-import { Meeting } from '../../models/meeting';
-import { MeetingOption } from '../../models/meeting-option';
+import { StepComponent } from '../../models/step-component.model';
+import { MeetingData } from '../../models/meeting-data.model';
+import { MeetingOption } from '../../models/meeting-option.model';
 import { WizardService } from '../../services/wizard.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { WizardService } from '../../services/wizard.service';
   templateUrl: './meeting-options.component.html',
 })
 export class MeetingOptionsComponent implements OnInit, StepComponent {
-  @Input() data: Meeting;
+  @Input() data: MeetingData;
   @Input() eventTitle: string;
 
   events: MeetingOption[] = [];
