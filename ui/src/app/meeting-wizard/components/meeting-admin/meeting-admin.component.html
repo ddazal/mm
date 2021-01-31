@@ -1,32 +1,22 @@
-<h1 class="text-4xl text-center mb-6 text-blue font-bold">¿Quién organiza el evento?</h1>
-<form [formGroup]="eventAdminForm" class="space-y-6">
-  <div class="space-y-2">
-    <input
-      formControlName="name"
-      class="w-full p-2 border-b border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:ring-opacity-25"
-      type="text"
-      placeholder="Nombre"
-      required
-    />
-    <div
-      *ngIf="name.invalid && (name.dirty || name.touched)"
-      class="text-lava text-sm"
-    >
-      <p>Este campo es obligatorio</p>
+<h1 class="title is-size-3 is-size-2-desktop has-text-centered has-text-weight-bold has-text-link">¿Quién organiza el evento?</h1>
+<form [formGroup]="eventAdminForm">
+  <div class="field">
+    <label for="name" class="label has-text-info">Tu nombre</label>
+    <div class="control">
+      <input id="name" formControlName="name" class="input"
+        [class.is-danger]="name.invalid && (name.dirty || name.touched)" type="text" placeholder="Paquita la del Barrio"
+        autocomplete="name" required />
     </div>
+    <p *ngIf="name.invalid && (name.dirty || name.touched)" class="help is-danger">Este campo es obligatorio</p>
   </div>
-  <div class="space-y-2">
-    <input
-      formControlName="email"
-      class="w-full p-2 border-b border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:ring-opacity-25"
-      type="email"
-      placeholder="Correo electrónico"
-      required
-    />
-    <div
-      *ngIf="email.invalid && (email.dirty || email.touched)"
-      class="text-lava text-sm"
-    >
+  <div class="field">
+    <label for="email" class="label has-text-info">Email</label>
+    <div class="control">
+      <input id="email" formControlName="email" class="input"
+        [class.is-danger]="email.invalid && (email.dirty || email.touched)" type="email" placeholder="paquita@barrio.mx"
+        autocomplete="email" required />
+    </div>
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="help is-danger">
       <p *ngIf="email.errors?.required">Este campo es obligatorio</p>
       <p *ngIf="email.errors?.pattern">Este no es un email válido</p>
     </div>

@@ -1,64 +1,24 @@
-<nav
-  class="py-6 flex flex-col md:flex-row md:items-center md:justify-between"
->
-  <div class="flex w-full justify-between md:w-auto">
-    <a
-      class="font-pacifico text-blue text-2xl lg:text-3xl select-none"
-      routerLink="/"
-    >
-      Meeting-o-Matic
-    </a>
-    <button
-      class="md:hidden focus:outline-none"
-      (click)="toggleMenu()"
-    >
-      <svg
-        *ngIf="!toggled"
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-6 stroke-current"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <line x1="4" y1="6" x2="20" y2="6" />
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <line x1="4" y1="18" x2="20" y2="18" />
-      </svg>
-      <!-- Close -->
-      <svg
-        *ngIf="toggled"
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-6 stroke-current"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-        <line x1="18" y1="6" x2="6" y2="18" />
-        <line x1="6" y1="6" x2="18" y2="18" />
-      </svg>
-    </button>
+<nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+  <div class="container is-max-widescreen">
+    <div class="navbar-brand">
+      <a routerLink="/" class="navbar-item is-size-4 has-text-link font-pacifico">
+        Meeting-o-Matic
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" [class.is-active]="toggled"
+        (click)="toggleMenu()">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div id="menu" class="navbar-menu" [class.is-active]="toggled">
+      <div class="navbar-end">
+        <a routerLink="/crear" class="navbar-item">Programar reunión</a>
+        <a href="" class="navbar-item">Iniciar sesión</a>
+        <div class="navbar-item">
+          <a href="" class="button is-link is-outlined">Crear cuenta</a>
+        </div>
+      </div>
+    </div>
   </div>
-  <ul
-    class="flex-col pt-3 space-y-2 text-sm md:flex md:flex-row md:items-center md:space-x-4 md:space-y-0 md:pt-0"
-    [class.hidden]="!toggled"
-    [class.flex]="toggled"
-  >
-    <li>
-      <a routerLink="/crear">Crea un evento</a>
-    </li>
-    <li>
-      <a href="#">Inicia sesión</a>
-    </li>
-    <li>
-      <a href="#" class="px-2 py-1 bg-blue text-white font-semibold"
-        >Crea una cuenta</a
-      >
-    </li>
-  </ul>
 </nav>
