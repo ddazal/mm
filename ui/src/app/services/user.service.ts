@@ -33,7 +33,7 @@ export class UserService {
 
   async addMeeting(userId: string, data: MeetingData): Promise<Meeting> {
     const endpoint = `${this.endpoint}/${userId}/meetings`;
-    const body = { title: data.title, description: data.description };
+    const body = { title: data.title, description: data.description, guests: data.guests };
     return this.http.post<Meeting>(endpoint, body, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).toPromise();
