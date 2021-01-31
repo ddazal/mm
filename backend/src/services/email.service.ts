@@ -1,11 +1,15 @@
-import { /* inject, */ BindingScope, injectable } from '@loopback/core';
+import { /* inject, */ BindingScope, injectable} from '@loopback/core';
 import * as nodemailer from 'nodemailer';
-import { Email, NodeMailerResponse, User } from '../models';
-import { welcomeEmail } from './templates/';
+import {Email, Meeting, NodeMailerResponse, User} from '../models';
+import {MeetingDetailsTemplate, MeetingInvitationTemplate, WelcomeEmailTemplate} from './templates/';
 
-@injectable({ scope: BindingScope.TRANSIENT })
+@injectable({scope: BindingScope.TRANSIENT})
 export class EmailService {
   constructor(/* Add @inject to inject parameters */) { }
+
+  /*
+   * Add service methods here
+   */
 
   private static setup() {
     let options = {
@@ -23,28 +27,41 @@ export class EmailService {
     return nodemailer.createTransport(options);
   }
 
-  /*
-   * Add service methods here
-   */
-
-  private getWelcomeEmail(user: User): Email {
-    return new Email({
-      from: process.env.SENDER_FROM,
-      to: user.email,
-      subject: '[Meeting-o-Matic] ¡Bienvenid@!',
-      text: welcomeEmail.text(user.name),
-      html: welcomeEmail.html(user.name),
-    });
-  }
-
   private async sendMail(template: Email): Promise<NodeMailerResponse> {
     const transporter = EmailService.setup();
     return transporter.sendMail(template);
   }
 
-  sendWelcomeEmail(user: User): Promise<NodeMailerResponse> {
-    const template = this.getWelcomeEmail(user);
+  async sendWelcomeEmail(user: User): Promise<NodeMailerResponse> {
+    const template = new Email({
+      from: process.env.SENDER_FROM,
+      to: user.email,
+      subject: '[Meeting-o-Matic] ¡Bienvenid@!',
+      text: WelcomeEmailTemplate.text(user),
+      html: WelcomeEmailTemplate.html(user),
+    });
     return this.sendMail(template);
   }
 
+  async sendMeetingDetailsEmail(baseUrl: string, user: User, meeting: Meeting): Promise<NodeMailerResponse> {
+    const template = new Email({
+      from: process.env.SENDER_FROM,
+      to: user.email,
+      subject: '[Meeting-o-Matic] Reunión programada',
+      text: MeetingDetailsTemplate.text(user, meeting),
+      html: MeetingDetailsTemplate.html(baseUrl, user, meeting),
+    })
+    return this.sendMail(template);
+  }
+
+  async sendMeetingInvitationEmail(baseUrl: string, user: User, meeting: Meeting): Promise<NodeMailerResponse> {
+    const template = new Email({
+      from: process.env.SENDER_FROM,
+      to: meeting.guests?.join(','),
+      subject: '[Meeting-o-Matic] Invitación a reunión',
+      text: MeetingInvitationTemplate.text(user, meeting),
+      html: MeetingInvitationTemplate.html(baseUrl, user, meeting),
+    })
+    return this.sendMail(template);
+  }
 }

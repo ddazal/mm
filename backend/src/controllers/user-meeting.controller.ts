@@ -1,3 +1,4 @@
+import {inject} from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -20,10 +21,13 @@ import {
   Meeting, User
 } from '../models';
 import {UserRepository} from '../repositories';
+import {EmailService} from '../services';
 
 export class UserMeetingController {
   constructor(
     @repository(UserRepository) protected userRepository: UserRepository,
+    @inject('services.EmailService')
+    public emailService: EmailService
   ) { }
 
   @get('/users/{id}/meetings', {
@@ -69,6 +73,16 @@ export class UserMeetingController {
   ): Promise<Meeting> {
     meeting.publicId = nanoid(12);
     meeting.privateId = nanoid(12);
+    try {
+      const user = await this.userRepository.findById(id);
+      await this.emailService.sendMeetingDetailsEmail('http://localhost:4200/reu', user, meeting);
+      if (meeting.guests?.length) {
+        await this.emailService.sendMeetingInvitationEmail('http://localhost:4200/reu', user, meeting);
+      }
+    } catch (error) {
+      // Log error to an application monitory system
+      console.error(error);
+    }
     return this.userRepository.meetings(id).create(meeting);
   }
 

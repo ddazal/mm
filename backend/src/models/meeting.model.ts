@@ -31,6 +31,12 @@ export class Meeting extends Entity {
   privateId?: string;
 
   @property({
+    type: 'array',
+    itemType: 'string',
+  })
+  guests?: string[];
+
+  @property({
     type: 'string',
   })
   userId?: string;
