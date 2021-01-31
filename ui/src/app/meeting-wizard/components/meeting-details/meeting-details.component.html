@@ -1,23 +1,21 @@
-<h1 class="text-4xl text-center mb-6 text-blue font-bold">¿Cuál es el motivo?</h1>
-<form [formGroup]="eventInfoForm" class="space-y-6">
-  <div class="space-y-2">
-    <input
-      formControlName="title"
-      class="w-full p-2 border-b border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 focus:ring-opacity-25"
-      type="text"
-      placeholder="Introduce el título"
-      required
-    />
-    <div
-      *ngIf="title.invalid && (title.dirty || title.touched)"
-      class="text-lava text-sm"
-    >
-      <p>Este campo es obligatorio</p>
+<h1 class="title is-size-3 is-size-2-desktop has-text-centered has-text-weight-bold has-text-link">¿Cuál es el motivo?</h1>
+<form [formGroup]="eventInfoForm">
+  <div class="field">
+    <label class="label has-text-info" for="title">Título</label>
+    <div class="control">
+      <input id="title" formControlName="title" class="input"
+        [class.is-danger]="title.invalid && (title.dirty || title.touched)" type="text"
+        placeholder="Introduce el título" autocomplete="off" required />
+    </div>
+    <p *ngIf="title.invalid && (title.dirty || title.touched)" class="help is-danger">
+      Este campo es obligatorio
+    </p>
+  </div>
+  <div class="field">
+    <label class="label has-text-info" id="description">Descripción</label>
+    <div class="control">
+      <textarea id="description" formControlName="description" class="textarea"
+        placeholder="Añade una nota (opcional)"></textarea>
     </div>
   </div>
-  <textarea
-    formControlName="description"
-    class="w-full border border-gray-300 p-2 h-20 resize-none focus:outline-none focus:ring-1 focus:ring-gray-300 focus:ring-opacity-25"
-    placeholder="Añade una nota (opcional)"
-  ></textarea>
 </form>

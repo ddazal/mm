@@ -1,19 +1,26 @@
-<div class="py-6">
-  <div class="max-w-screen-md mx-auto">
-    <p class="text-center text-lg">
+<section class="section">
+  <div class="container is-max-desktop">
+    <p class="has-text-centered is-size-4">
       Paso {{ currentStepIndex + 1 }} de {{ totalSteps }}
     </p>
     <ng-template appStepHost></ng-template>
-    <!-- Actions -->
-    <div class="flex mt-6 justify-end space-x-4 text-lg">
-      <button *ngIf="currentStepIndex > 0" (click)="goBack()" class="button border border-gray-300 focus:ring-gray-300">
-        Regresar
-      </button>
-      <button (click)="goNext()" class="bg-ruby text-white button font-medium focus:ring-ruby">
-        Continuar
-      </button>
+    <div class="is-flex is-justify-content-flex-end mt-3">
+      <div class="field is-grouped">
+        <div class="control">
+          <button *ngIf="currentStepIndex > 0" (click)="goBack()" class="button font-montserrat">
+            Regresar
+          </button>
+        </div>
+        <div class="control">
+          <button (click)="goNext()" class="button is-danger font-montserrat">
+            Continuar
+          </button>
+        </div>
+      </div>
     </div>
     <!-- Error message, if any -->
-    <p *ngIf="stepErrorMessage" class="text-right text-ruby mt-2">{{stepErrorMessage}}</p>
+    <p *ngIf="stepErrorMessage" class="help is-danger has-text-right">
+      {{stepErrorMessage}}
+    </p>
   </div>
-</div>
+</section>

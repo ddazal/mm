@@ -1,14 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Pacifico&display=swap');
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+$footer-padding: 1.5rem 0.75rem;
 
-.button {
-  @apply px-3 py-1 focus:outline-none focus:ring-2 focus:ring-opacity-50;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Pacifico&display=swap');
+@import "bulma/bulma.sass";
+
+
+html,
+body {
+  height: 100%;
 }
 
-.ng-invalid.ng-touched,
-.ng-invalid.ng-dirty {
-  @apply border-lava;
+.font-pacifico {
+  font-family: Pacifico, cursive;
+}
+
+.font-montserrat {
+  font-family: Montserrat, sans-serif;
+}
+
+@media screen and (max-width: $tablet) {
+  .col-reverse {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }
