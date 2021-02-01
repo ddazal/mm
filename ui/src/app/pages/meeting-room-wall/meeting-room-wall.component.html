@@ -1,0 +1,37 @@
+<section class="section">
+  <div class="container is-max-desktop">
+    <h1 class="title is-size-3 is-size-2-desktop has-text-centered has-text-weight-bold has-text-primary">
+      No tan rápido
+    </h1>
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <div class="block">
+          <p class="has-text-centered">Para acceder a esta reunión, ingresa el código de acceso que te fue enviado por
+            correo o contacta al administrador para que te brinde acceso.</p>
+        </div>
+        <div class="block">
+          <div *ngIf="incorrectAccessCode" class="notification is-danger is-light">
+            <button class="delete" (click)="incorrectAccessCode = false"></button>
+            El código de acceso es incorrecto
+          </div>
+          <div class="field">
+            <div class="control">
+              <input [formControl]="accessCode" type="input" class="input" placeholder="Código de acceso"
+                [class.is-danger]="accessCode.invalid && (accessCode.dirty || accessCode.touched)" required>
+            </div>
+            <p class="help is-danger" *ngIf="accessCode.invalid && (accessCode.dirty || accessCode.touched)">
+              Este campo es obligatorio
+            </p>
+          </div>
+          <div class="field">
+            <div class="control has-text-right">
+              <button class="button is-danger font-montserrat is-normal" (click)="verifyAccessCode()">
+                Acceder
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

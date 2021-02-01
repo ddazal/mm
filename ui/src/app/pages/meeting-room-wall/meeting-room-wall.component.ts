@@ -1,0 +1,31 @@
+import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthMeetingService } from 'src/app/services/auth-meeting.service';
+
+@Component({
+  selector: 'app-meeting-room-wall',
+  templateUrl: './meeting-room-wall.component.html',
+  styleUrls: ['./meeting-room-wall.component.scss']
+})
+export class MeetingRoomWallComponent implements OnInit {
+  accessCode: FormControl = new FormControl('', Validators.required)
+  incorrectAccessCode = false;
+
+  constructor(private authMeetingService: AuthMeetingService, private router: Router) { }
+
+  ngOnInit(): void {
+    if (!this.authMeetingService.redirectUrl) {
+      this.router.navigateByUrl('/')
+    }
+  }
+
+  async verifyAccessCode() {
+    const code = this.accessCode.value;
+    const success = await this.authMeetingService.verifyAccessCode(code)
+    if (!success) {
+      this.incorrectAccessCode = true;
+    }
+  }
+
+}
