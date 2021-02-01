@@ -12,7 +12,7 @@
           </button>
         </div>
         <div class="control">
-          <button (click)="goNext()" class="button is-danger font-montserrat">
+          <button (click)="goNext()" class="button is-danger font-montserrat" [class.is-loading]="loading">
             Continuar
           </button>
         </div>

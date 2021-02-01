@@ -1,7 +1,7 @@
-<h1 class="title is-size-3 is-size-2-desktop has-text-centered has-text-weight-bold has-text-link">¿Cuál es el motivo?</h1>
+<h1 class="title is-size-3 is-size-2-desktop has-text-centered has-text-weight-bold has-text-primary">¿Cuál es el motivo?</h1>
 <form [formGroup]="eventInfoForm">
   <div class="field">
-    <label class="label has-text-info" for="title">Título</label>
+    <label class="label has-text-grey-dark has-text-weight-medium" for="title">Título</label>
     <div class="control">
       <input id="title" formControlName="title" class="input"
         [class.is-danger]="title.invalid && (title.dirty || title.touched)" type="text"
@@ -12,7 +12,7 @@
     </p>
   </div>
   <div class="field">
-    <label class="label has-text-info" id="description">Descripción</label>
+    <label class="label has-text-grey-dark has-text-weight-medium" id="description">Descripción</label>
     <div class="control">
       <textarea id="description" formControlName="description" class="textarea"
         placeholder="Añade una nota (opcional)"></textarea>

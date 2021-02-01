@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Meeting } from 'src/app/models/meeting.model';
 import { MeetingData } from '../models/meeting-data.model';
 import { MeetingService } from '../services/meeting.service'
 
@@ -27,8 +28,8 @@ export class WizardService {
     this.data = data;
   }
 
-  async scheduleMeeting(data: MeetingData): Promise<void> {
+  async scheduleMeeting(data: MeetingData): Promise<Meeting> {
     const meeting = await this.meetingService.scheduleMeeting(data);
-    console.log(meeting);
+    return meeting;
   }
 }
