@@ -39,6 +39,11 @@ export class Meeting extends Entity {
   @property({
     type: 'string',
   })
+  accessCode?: string;
+
+  @property({
+    type: 'string',
+  })
   userId?: string;
 
   constructor(data?: Partial<Meeting>) {

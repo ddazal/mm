@@ -28,6 +28,7 @@ export class MeetingInvitationTemplate {
                 <p>👋🏼 Hola,</p>
                 <p>${user.name} te ha invitado a la reunión ${meeting.title} y ha creado varias opciones para que puedas participar.</p>
                 <p>Elige las que mejor se acomoden a tu horario en el siguiente enlace: <a href="${baseUrl}/${meeting.publicId}">${baseUrl}/${meeting.publicId}</a></p>
+                <p>Utiliza el siguiente código de acceso para ingresar: <strong>${meeting.accessCode}</strong></p>
                 <p>Un saludo,</p>
                 <p>Meeting-o-Matic&copy;</p>
               </td>

@@ -27,8 +27,9 @@ export class MeetingDetailsTemplate {
               <td style="font-size: 18px;">
                 <p>Hola, ${user.name}.</p>
                 <p>La reunión ${meeting.title} se ha programado con éxito.</p>
-                <p>Envía el siguiente enlace a las personas que quieres que participen: <a href="${baseUrl}/${meeting.publicId}">${baseUrl}/${meeting.publicId}</a></p>
+                <p>Envía el siguiente enlace a las personas que quieres que participen: <a href="${baseUrl}/${meeting.publicId}">${baseUrl}/${meeting.publicId}</a>.</p>
                 <p>Revisa periódicamente los resultados en este enlace privado: <a href="${baseUrl}/${meeting.privateId}">${baseUrl}/${meeting.privateId}</a></p>
+                <p><strong>El código de acceso para ambos enlaces es el siguiente: ${meeting.accessCode}</strong></p>
                 <p>Meeting-o-Matic&copy;</p>
               </td>
             </tr>

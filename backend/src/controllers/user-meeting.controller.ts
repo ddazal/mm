@@ -73,6 +73,7 @@ export class UserMeetingController {
   ): Promise<Meeting> {
     meeting.publicId = nanoid(12);
     meeting.privateId = nanoid(12);
+    meeting.accessCode = nanoid(12);
     try {
       const user = await this.userRepository.findById(id);
       await this.emailService.sendMeetingDetailsEmail('http://localhost:4200/reu', user, meeting);
