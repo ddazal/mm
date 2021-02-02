@@ -12,13 +12,13 @@ export class MeetingGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const { url } = state
+    const { url } = state;
     if (this.authMeetingService.isLoggedIn) {
       return true;
     }
-    const id = route.paramMap.get('id');
+    const accessId = route.paramMap.get('id');
     this.authMeetingService.redirectUrl = url;
-    this.authMeetingService.meetingId = id;
+    this.authMeetingService.meetingAccessId = accessId;
     return this.router.parseUrl('/muro');
   }
 

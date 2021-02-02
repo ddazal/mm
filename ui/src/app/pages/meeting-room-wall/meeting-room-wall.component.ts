@@ -16,13 +16,13 @@ export class MeetingRoomWallComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.authMeetingService.redirectUrl) {
-      this.router.navigateByUrl('/')
+      this.router.navigateByUrl('/');
     }
   }
 
-  async verifyAccessCode() {
+  async verifyAccessCode(): Promise<boolean | void> {
     const code = this.accessCode.value;
-    const success = await this.authMeetingService.verifyAccessCode(code)
+    const success = await this.authMeetingService.verifyAccessCode(code);
     if (!success) {
       this.incorrectAccessCode = true;
     }

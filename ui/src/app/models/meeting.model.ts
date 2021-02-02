@@ -4,4 +4,5 @@ export interface Meeting {
   publicId: string;
   privateId: string;
   userId: string;
+  accessCode: string;
 }
