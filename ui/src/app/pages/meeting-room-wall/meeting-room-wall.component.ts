@@ -15,7 +15,7 @@ export class MeetingRoomWallComponent implements OnInit {
   constructor(private authMeetingService: AuthMeetingService, private router: Router) { }
 
   ngOnInit(): void {
-    if (!this.authMeetingService.redirectUrl) {
+    if (!this.authMeetingService.redirectUrl || !this.authMeetingService.meetingAccessId || this.authMeetingService.redirectUrl) {
       this.router.navigateByUrl('/');
     }
   }
