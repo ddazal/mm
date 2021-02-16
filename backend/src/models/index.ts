@@ -4,3 +4,4 @@ export * from './node-mailer-envelope.model';
 export * from './node-mailer-response.model';
 export * from './user.model';
 
+export * from './option.model';

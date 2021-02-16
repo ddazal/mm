@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Option} from './option.model';
 
 @model()
 export class Meeting extends Entity {
@@ -45,6 +46,9 @@ export class Meeting extends Entity {
     type: 'string',
   })
   userId?: string;
+
+  @hasMany(() => Option)
+  options: Option[];
 
   constructor(data?: Partial<Meeting>) {
     super(data);
