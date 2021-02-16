@@ -1,0 +1,24 @@
+version: '3.8'
+
+services: 
+  web:
+    build: 
+      context: './ui'
+  api:
+    environment:
+      SMTP_PORT: 1025
+      SMTP_HOST: mailhog
+      SENDER_FROM: 'test@mail.com'
+      MONGO_URI: mongodb://db:27017/meeting-o-matic
+  db:
+    volumes: 
+      - dbdata:/data/db
+  mailhog:
+    image: mailhog/mailhog
+    networks:
+      - backend
+    ports:
+      - "8081:8025"
+
+volumes:
+  dbdata:

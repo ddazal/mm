@@ -12,4 +12,4 @@ RUN npm run build:prod
 
 FROM nginx:alpine
 
-COPY --from=build /usr/src/app/dist/ui /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html
