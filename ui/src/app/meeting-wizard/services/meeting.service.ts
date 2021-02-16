@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Meeting } from 'src/app/models/meeting.model';
 import { User } from '../../models/user.model';
@@ -9,7 +10,7 @@ import { MeetingData } from '../models/meeting-data.model';
 })
 export class MeetingService {
 
-  constructor(private userService: UserService) { }
+  constructor(private http: HttpClient, private userService: UserService) { }
 
   async scheduleMeeting(data: MeetingData): Promise<Meeting> {
     let user = await this.userService.findByEmail(data.admin.email);
@@ -19,4 +20,6 @@ export class MeetingService {
     const meeting = await this.userService.addMeeting(user.id, data);
     return meeting;
   }
+
+  async addMeetingOptions() {}
 }

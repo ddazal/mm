@@ -1,37 +1,51 @@
 version: '3.8'
 
 services:
+  web:
+    build:
+      context: ./ui
+    container_name: mm_web
+    networks:
+      - frontend
+    ports:
+      - "4200:4200"
+    volumes: 
+      - ./ui:/usr/src/app
   api:
     build:
       context: './backend'
+    container_name: mm_api
     depends_on:
       - db
     networks:
+      - frontend
       - backend
+    ports:
+      - "3000:3000"
     environment:
       SMTP_PORT: 1025
       SMTP_HOST: mailhog
       SENDER_FROM: 'test@mail.com'
       MONGO_URI: mongodb://db:27017/meeting-o-matic
-    ports:
-      - "3000:3000"
   db:
     image: mongo:4.4.3-bionic
+    container_name: mm_db
     restart: always
-    networks:
-      - backend
     volumes:
       - dbdata:/data/db
+    networks:
+      - backend
   mailhog:
     image: mailhog/mailhog
+    container_name: mm_mailhog
     networks:
       - backend
     ports:
       - "8081:8025"
 
-
 networks:
   backend:
+  frontend:
 
 volumes:
   dbdata:
