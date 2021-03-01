@@ -61,7 +61,7 @@ export class MeetingWizardComponent implements OnInit {
     if (this.isLastStep) {
       this.loading = true;
       const meetingData = this.wizardService.getData();
-      console.log(meetingData)
+      console.log(meetingData);
       const meeting = await this.wizardService.scheduleMeeting(meetingData);
       this.loading = false;
       console.log(meeting);

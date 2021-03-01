@@ -9,7 +9,7 @@ import { AuthMeetingService } from 'src/app/services/auth-meeting.service';
   styleUrls: ['./meeting-room-wall.component.scss']
 })
 export class MeetingRoomWallComponent implements OnInit {
-  accessCode: FormControl = new FormControl('', Validators.required)
+  accessCode: FormControl = new FormControl('', Validators.required);
   incorrectAccessCode = false;
 
   constructor(private authMeetingService: AuthMeetingService, private router: Router) { }

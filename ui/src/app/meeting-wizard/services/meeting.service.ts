@@ -20,6 +20,4 @@ export class MeetingService {
     const meeting = await this.userService.addMeeting(user.id, data);
     return meeting;
   }
-
-  async addMeetingOptions() {}
 }
