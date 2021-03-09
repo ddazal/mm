@@ -7,7 +7,8 @@ import { AuthMeetingService } from '../services/auth-meeting.service';
   providedIn: 'root'
 })
 export class MeetingGuard implements CanActivate {
-  constructor(private authMeetingService: AuthMeetingService, private router: Router) { }
+  constructor(private authMeetingService: AuthMeetingService, private router: Router) {
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
