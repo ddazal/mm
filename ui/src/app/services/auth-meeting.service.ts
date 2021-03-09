@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Meeting } from '../models/meeting.model';
+import { MeetingService } from './meeting.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,30 +11,17 @@ export class AuthMeetingService {
   isLoggedIn = false;
   redirectUrl: string;
   meetingAccessId: string;
+  accessedMetting: Meeting;
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private meetingService: MeetingService) { }
 
   async verifyAccessCode(password: string): Promise<boolean> {
-    const filter = {
-      where: {
-        or: [
-          { publicId: this.meetingAccessId },
-          { privateId: this.meetingAccessId }
-        ]
-      }
-    };
-    const meetings = await this.http.get<Meeting[]>(`http://localhost:3000/meetings`, {
-      params: new HttpParams({
-        fromObject: {
-          filter: JSON.stringify(filter)
-        }
-      })
-    }).toPromise();
-    if (!meetings.length) {
+    const meeting = await this.meetingService.getMeetingByPublicOrPrivateId(this.meetingAccessId);
+    if (!meeting) {
       return false;
     }
-    const meeting = meetings[0];
     if (password === meeting.accessCode) {
+      this.accessedMetting = meeting;
       this.isLoggedIn = true;
       return this.router.navigateByUrl(this.redirectUrl);
     }

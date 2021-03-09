@@ -29,7 +29,8 @@ export class Option extends Entity {
 
   @property({
     type: 'array',
-    itemType: 'string'
+    itemType: 'string',
+    default: []
   })
   voters?: string[];
 

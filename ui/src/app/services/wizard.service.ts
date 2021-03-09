@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Meeting } from 'src/app/models/meeting.model';
-import { MeetingData } from '../models/meeting-data.model';
-import { MeetingOption } from '../models/meeting-option.model';
-import { MeetingService } from '../services/meeting.service';
+import { Meeting } from '../models/meeting.model';
+import { MeetingData } from '../meeting-wizard/models/meeting-data.model';
+import { MeetingOption } from '../meeting-wizard/models/meeting-option.model';
+import { MeetingService } from './meeting.service';
 
 @Injectable({
   providedIn: 'root',

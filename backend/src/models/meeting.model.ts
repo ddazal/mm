@@ -1,5 +1,6 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {belongsTo, Entity, hasMany, model, property} from '@loopback/repository';
 import {Option} from './option.model';
+import {User} from './user.model';
 
 @model()
 export class Meeting extends Entity {
@@ -41,14 +42,11 @@ export class Meeting extends Entity {
     type: 'string',
   })
   accessCode?: string;
-
-  @property({
-    type: 'string',
-  })
-  userId?: string;
-
   @hasMany(() => Option)
   options: Option[];
+
+  @belongsTo(() => User)
+  userId: string;
 
   constructor(data?: Partial<Meeting>) {
     super(data);

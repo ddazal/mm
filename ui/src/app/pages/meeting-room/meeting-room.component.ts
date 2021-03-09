@@ -1,4 +1,7 @@
+import * as moment from 'moment-timezone';
 import { Component, OnInit } from '@angular/core';
+import { MeetingOption } from 'src/app/meeting-wizard/models/meeting-option.model';
+import { AuthMeetingService } from 'src/app/services/auth-meeting.service';
 
 @Component({
   selector: 'app-meeting-room',
@@ -6,10 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./meeting-room.component.scss']
 })
 export class MeetingRoomComponent implements OnInit {
+  meetingTitle: string;
+  meetingOwner: string;
+  meetingDescription: string;
+  meetingOptions: MeetingOption[];
+  timeZone: string;
+  timeZoneAbbr: string;
+  
 
-  constructor() { }
+  constructor(private authMeetingService: AuthMeetingService) { }
 
   ngOnInit(): void {
+    this.setup()
+  }
+  
+  setup() {
+    const { title, description, user, options } = this.authMeetingService.accessedMetting;
+    this.meetingTitle = title;
+    this.meetingOwner = user.name;
+    this.meetingDescription = description;
+    this.meetingOptions = options;
+    const timeOffset = moment(new Date()).utcOffset()
+    this.timeZone = moment.tz.guess();
+    this.timeZoneAbbr = moment.tz.zone(this.timeZone).abbr(timeOffset)
   }
 
 }

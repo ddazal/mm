@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { StepComponent } from '../../models/step-component.model';
 import { MeetingData } from '../../models/meeting-data.model';
 import { MeetingOption } from '../../models/meeting-option.model';
-import { WizardService } from '../../services/wizard.service';
+import { WizardService } from '../../../services/wizard.service';
 
 @Component({
   selector: 'app-meeting-options',

@@ -1,1 +1,25 @@
-<p>meeting-room works!</p>
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="has-text-centered">
+      <h2 class="title is-size-4 is-size-3-desktop has-text-weight-bold">{{meetingTitle}}</h2>
+      <p class="subtitle">Por {{meetingOwner}}</p>
+    </div>
+    <div class="mt-6">
+      <p class="has-text-weight-bold is-size-5">Descripción</p>
+      <p>{{meetingDescription}}</p>
+      <!-- <div *ngIf="meetingDescription">
+      </div> -->
+    </div>
+    <div class="mt-6">
+      <p class="is-flex is-align-items-center is-justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <circle cx="12" cy="12" r="9" />
+          <line x1="12" y1="8" x2="12.01" y2="8" />
+          <polyline points="11 12 12 12 12 16 13 16" />
+        </svg>
+        <span>Las horas se muestran en la zona horaria GMT{{timeZoneAbbr}} · {{timeZone}}</span>
+      </p>
+    </div>
+  </div>
+</section>

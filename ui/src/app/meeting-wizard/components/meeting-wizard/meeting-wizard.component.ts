@@ -9,7 +9,7 @@ import { StepItem } from '../../models/step-item.model';
 import { StepComponent } from '../../models/step-component.model';
 import { StepService } from '../../services/step.service';
 import { MeetingData } from '../../models/meeting-data.model';
-import { WizardService } from '../../services/wizard.service';
+import { WizardService } from '../../../services/wizard.service';
 
 @Component({
   selector: 'app-meeting-wizard',

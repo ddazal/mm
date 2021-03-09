@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,10 +11,18 @@ import { SharedModule } from './shared/shared.module';
 import { MeetingWizardModule } from './meeting-wizard/meeting-wizard.module';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { MeetingRoomWallComponent } from './pages/meeting-room-wall/meeting-room-wall.component';
+import { MeetingRoomComponent } from './pages/meeting-room/meeting-room.component'
 
 @NgModule({
-  declarations: [AppComponent, HomepageComponent, ScheduleComponent, MeetingRoomWallComponent],
+  declarations: [
+    AppComponent,
+    HomepageComponent,
+    ScheduleComponent,
+    MeetingRoomWallComponent,
+    MeetingRoomComponent
+  ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,

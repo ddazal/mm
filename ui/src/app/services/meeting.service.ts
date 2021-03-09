@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Meeting } from 'src/app/models/meeting.model';
-import { UserService } from '../../services/user.service';
-import { MeetingData } from '../models/meeting-data.model';
-import { MeetingOption } from '../models/meeting-option.model';
+import { Meeting } from '../models/meeting.model';
+import { UserService } from './user.service';
+import { MeetingData } from '../meeting-wizard/models/meeting-data.model';
+import { MeetingOption } from '../meeting-wizard/models/meeting-option.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,25 @@ export class MeetingService {
     return this.http.post<MeetingOption>(`${this.endpoint}/${meetingId}/options`, body, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }).toPromise()
+  }
+
+  async getMeetingByPublicOrPrivateId(accessId: string): Promise<Meeting> {
+    const filter = {
+      where: {
+        or: [
+          { publicId: accessId },
+          { privateId: accessId }
+        ]
+      },
+      include: ['user', 'options']
+    };
+    const meetings = await this.http.get<Meeting[]>(this.endpoint, {
+      params: new HttpParams({
+        fromObject: {
+          filter: JSON.stringify(filter)
+        }
+      })
+    }).toPromise();
+    return meetings[0];
   }
 }
