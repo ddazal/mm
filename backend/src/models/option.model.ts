@@ -28,6 +28,12 @@ export class Option extends Entity {
   votes?: number;
 
   @property({
+    type: 'array',
+    itemType: 'string'
+  })
+  voters?: string[];
+
+  @property({
     type: 'string',
   })
   meetingId?: string;
