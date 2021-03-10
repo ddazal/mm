@@ -15,6 +15,7 @@ export class MeetingRoomComponent implements OnInit {
   meetingOptions = [];
   timeZone: string;
   timeZoneAbbr: string;
+  showVoteForm = false;
 
 
   constructor(private authMeetingService: AuthMeetingService) { }
@@ -50,6 +51,10 @@ export class MeetingRoomComponent implements OnInit {
     }).sort((a, b) => moment(a.startTime).isBefore(b.startTime) ? -1 : 1);
 
     console.log(this.meetingOptions)
+  }
+
+  toggleVoteForm() {
+    this.showVoteForm = !this.showVoteForm
   }
 
 }
