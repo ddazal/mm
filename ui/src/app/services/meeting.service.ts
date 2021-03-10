@@ -24,8 +24,8 @@ export class MeetingService {
 
   async createMeetingOption(meetingId: string, option: MeetingOption): Promise<MeetingOption> {
     const body = {
-      startTime: option.start,
-      endTime: option.end
+      start: option.start,
+      end: option.end
     }
     return this.http.post<MeetingOption>(`${this.endpoint}/${meetingId}/options`, body, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })

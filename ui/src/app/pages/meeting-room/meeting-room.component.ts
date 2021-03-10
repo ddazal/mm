@@ -12,26 +12,44 @@ export class MeetingRoomComponent implements OnInit {
   meetingTitle: string;
   meetingOwner: string;
   meetingDescription: string;
-  meetingOptions: MeetingOption[];
+  meetingOptions = [];
   timeZone: string;
   timeZoneAbbr: string;
-  
+
 
   constructor(private authMeetingService: AuthMeetingService) { }
 
   ngOnInit(): void {
     this.setup()
   }
-  
+
   setup() {
     const { title, description, user, options } = this.authMeetingService.accessedMetting;
     this.meetingTitle = title;
     this.meetingOwner = user.name;
     this.meetingDescription = description;
-    this.meetingOptions = options;
+
     const timeOffset = moment(new Date()).utcOffset()
     this.timeZone = moment.tz.guess();
     this.timeZoneAbbr = moment.tz.zone(this.timeZone).abbr(timeOffset)
+
+    this.meetingOptions = options.map(option => {
+      const startTime = moment.tz(option.start, this.timeZone).locale('es')
+      const endTime = moment.tz(option.end, this.timeZone).locale('es')
+
+      return {
+        ...option,
+        startHour: startTime.format('HH:mm'),
+        endHour: endTime.format('HH:mm'),
+        month: startTime.format('MMM'),
+        dayOfMonth: startTime.format('DD'),
+        dayOfWeek: startTime.format('ddd'),
+        startTime: startTime.format(),
+        endTime: endTime.format()
+      }
+    }).sort((a, b) => moment(a.startTime).isBefore(b.startTime) ? -1 : 1);
+
+    console.log(this.meetingOptions)
   }
 
 }

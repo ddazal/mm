@@ -13,13 +13,13 @@ export class Option extends Entity {
     type: 'string',
     required: true,
   })
-  startTime: string;
+  start: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  endTime: string;
+  end: string;
 
   @property({
     type: 'number',

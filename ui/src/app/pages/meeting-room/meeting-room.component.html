@@ -12,14 +12,53 @@
     </div>
     <div class="mt-6">
       <p class="is-flex is-align-items-center is-justify-content-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <circle cx="12" cy="12" r="9" />
           <line x1="12" y1="8" x2="12.01" y2="8" />
           <polyline points="11 12 12 12 12 16 13 16" />
         </svg>
         <span>Las horas se muestran en la zona horaria GMT{{timeZoneAbbr}} · {{timeZone}}</span>
       </p>
+      <div class="table-container">
+        <table class="table is-bordered mt-4 container">
+          <tbody>
+            <tr>
+              <td></td>
+              <td *ngFor="let opt of meetingOptions" class="has-text-centered">
+                <div class="is-flex is-flex-direction-column">
+                  <span>{{opt.month}}</span>
+                  <span class="has-text-weight-semibold	is-size-4">
+                    {{opt.dayOfMonth}}
+                  </span>
+                  <span class="is-uppercase is-size-7 has-text-weight-medium">
+                    {{opt.dayOfWeek}}
+                  </span>
+                  <div class="mt-2 is-flex is-flex-direction-column is-size-7">
+                    <span>{{ opt.startHour }}</span>
+                    <span>{{ opt.endHour }}</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Participantes</td>
+              <td *ngFor="let opt of meetingOptions" class="has-text-centered">
+                <div class="is-flex is-align-items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0331f4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M5 12l5 5l10 -10" />
+                  </svg>
+                  <span class="has-text-primary has-text-weight-bold">
+                    {{ opt.votes }}
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>
