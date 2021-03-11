@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MeetingOption } from 'src/app/meeting-wizard/models/meeting-option.model';
 import { AuthMeetingService } from 'src/app/services/auth-meeting.service';
 import { FormArray, FormControl, Validators } from '@angular/forms';
+import { MeetingOptionService } from 'src/app/services/meeting-option.service';
 
 @Component({
   selector: 'app-meeting-room',
@@ -23,7 +24,7 @@ export class MeetingRoomComponent implements OnInit {
   showVoteForm = false;
 
 
-  constructor(private authMeetingService: AuthMeetingService) { }
+  constructor(private authMeetingService: AuthMeetingService, private meetingOptionService: MeetingOptionService) { }
 
   ngOnInit(): void {
     this.setup()
@@ -68,7 +69,7 @@ export class MeetingRoomComponent implements OnInit {
     }
   }
 
-  saveChoices() {
+  async saveChoices() {
     const choices = this.choices.value.reduce((ids, choice, index) => {
       return choice ? [...ids, this.meetingOptionsIds[index]] : ids
     }, [])
@@ -76,7 +77,13 @@ export class MeetingRoomComponent implements OnInit {
       this.feedbackMessage = 'Por favor escribe tu nombre y selecciona una o más opciones.'
       return
     }
-    console.log(choices)
+    try {
+      // TODO: add loading state
+      await this.meetingOptionService.updateMany(choices, this.participant.value)
+    } catch (error) {
+      console.log(error.message)
+      this.feedbackMessage = 'Algo salió mal'
+    }
   }
 
 }

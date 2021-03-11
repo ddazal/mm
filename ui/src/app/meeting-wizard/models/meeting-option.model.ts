@@ -4,4 +4,5 @@ export interface MeetingOption {
   start: string;
   end: string;
   votes?: number;
+  voters?: string[];
 }
