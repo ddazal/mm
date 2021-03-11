@@ -70,10 +70,10 @@
                 </tr>
                 <tr *ngIf="showVoteForm">
                   <td>
-                    <input type="text" class="input is-small" placeholder="Nombre" required>
+                    <input type="text" class="input is-small" placeholder="Nombre" [formControl]="participant" required>
                   </td>
-                  <td *ngFor="let opt of meetingOptions" class="has-text-centered">
-                    <input type="checkbox" name="" id="">
+                  <td *ngFor="let opt of meetingOptions; index as i" class="has-text-centered">
+                    <input type="checkbox" name="choices" [value]="opt.id" [formControl]="choices.controls[i]">
                   </td>
                 </tr>
               </tbody>
@@ -87,12 +87,15 @@
                 </button>
               </div>
               <div class="control">
-                <button class="button is-danger font-montserrat">
+                <button class="button is-danger font-montserrat" (click)="saveChoices()">
                   Guardar
                 </button>
               </div>
             </div>
           </div>
+          <p *ngIf="feedbackMessage" class="help is-danger has-text-right">
+            {{feedbackMessage}}
+          </p>
         </div>
       </div>
     </div>
