@@ -10,16 +10,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { MeetingWizardModule } from './meeting-wizard/meeting-wizard.module';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
-import { MeetingRoomWallComponent } from './pages/meeting-room-wall/meeting-room-wall.component';
-import { MeetingRoomComponent } from './pages/meeting-room/meeting-room.component'
+import { MeetingCheckinComponent } from './pages/meeting-checkin/meeting-checkin.component';
+import { MeetingRoomComponent } from './pages/meeting-room/meeting-room.component';
+import { MeetingCheckoutComponent } from './pages/meeting-checkout/meeting-checkout.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     ScheduleComponent,
-    MeetingRoomWallComponent,
-    MeetingRoomComponent
+    MeetingCheckinComponent,
+    MeetingRoomComponent,
+    MeetingCheckoutComponent
   ],
   imports: [
     CommonModule,

@@ -20,7 +20,7 @@ export class MeetingGuard implements CanActivate {
     const accessId = route.paramMap.get('id');
     this.authMeetingService.redirectUrl = url;
     this.authMeetingService.meetingAccessId = accessId;
-    return this.router.parseUrl('/muro');
+    return this.router.parseUrl('/reu/checkin');
   }
 
 }

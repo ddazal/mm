@@ -27,4 +27,11 @@ export class AuthMeetingService {
     }
     return false;
   }
+
+  reset() {
+    this.isLoggedIn = false;
+    this.redirectUrl = '';
+    this.meetingAccessId = '';
+    this.accessedMetting = null;
+  }
 }

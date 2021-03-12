@@ -4,6 +4,7 @@ import { MeetingOption } from 'src/app/meeting-wizard/models/meeting-option.mode
 import { AuthMeetingService } from 'src/app/services/auth-meeting.service';
 import { FormArray, FormControl, Validators } from '@angular/forms';
 import { MeetingOptionService } from 'src/app/services/meeting-option.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-meeting-room',
@@ -24,9 +25,10 @@ export class MeetingRoomComponent implements OnInit {
   optionsIds = [];
   votesResults = [];
   showVoteForm = false;
+  isSavingVotes = false;
 
 
-  constructor(private authMeetingService: AuthMeetingService, private meetingOptionService: MeetingOptionService) { }
+  constructor(private authMeetingService: AuthMeetingService, private meetingOptionService: MeetingOptionService, private router: Router) { }
 
   ngOnInit(): void {
     this.setup()
@@ -59,7 +61,10 @@ export class MeetingRoomComponent implements OnInit {
         }
       })
       .sort((a, b) => moment(a.startTime).isBefore(b.startTime) ? -1 : 1);
-    this.options.forEach(() => this.choices.push(new FormControl()))
+    this.options.forEach(() => {
+      const control: FormControl = new FormControl(false)
+      this.choices.push(control)
+    })
     this.optionsIds = this.options.map(option => option.id)
   }
 
@@ -94,6 +99,10 @@ export class MeetingRoomComponent implements OnInit {
     }
   }
 
+  toggleSaveLoader() {
+    this.isSavingVotes = !this.isSavingVotes
+  }
+
   async saveChoices() {
     const choices = this.choices.value.reduce((ids, choice, index) => {
       return choice ? [...ids, this.optionsIds[index]] : ids
@@ -103,10 +112,13 @@ export class MeetingRoomComponent implements OnInit {
       return
     }
     try {
-      // TODO: add loading state
-      await this.meetingOptionService.updateMany(choices, this.participant.value)
+      this.toggleSaveLoader()
+      await this.meetingOptionService.addVotes(choices, this.participant.value)
+      this.toggleSaveLoader()
+      this.router.navigate(['/reu/checkout'])
     } catch (error) {
       console.log(error.message)
+      this.toggleSaveLoader()
       this.feedbackMessage = 'Algo salió mal'
     }
   }

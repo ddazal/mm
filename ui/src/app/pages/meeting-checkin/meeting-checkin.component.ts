@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 import { AuthMeetingService } from 'src/app/services/auth-meeting.service';
 
 @Component({
-  selector: 'app-meeting-room-wall',
-  templateUrl: './meeting-room-wall.component.html',
-  styleUrls: ['./meeting-room-wall.component.scss']
+  selector: 'app-meeting-checkin',
+  templateUrl: './meeting-checkin.component.html',
 })
-export class MeetingRoomWallComponent implements OnInit {
+export class MeetingCheckinComponent implements OnInit {
   accessCode: FormControl = new FormControl('', Validators.required);
   incorrectAccessCode = false;
 

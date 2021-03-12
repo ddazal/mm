@@ -11,7 +11,7 @@ export class MeetingOptionService {
 
   constructor(private http: HttpClient) { }
 
-  async updateMany(ids: string[], voter: string): Promise<void> {
+  async addVotes(ids: string[], voter: string): Promise<void> {
     for (const id of ids) {
       const url = `${this.endpoint}/${id}`
       const option = await this.http.get<MeetingOption>(url).toPromise()

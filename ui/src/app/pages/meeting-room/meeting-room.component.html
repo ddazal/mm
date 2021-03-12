@@ -107,7 +107,7 @@
                 </button>
               </div>
               <div class="control">
-                <button class="button is-danger font-montserrat" (click)="saveChoices()">
+                <button class="button is-danger font-montserrat" [class.is-loading]="isSavingVotes" (click)="saveChoices()">
                   Guardar
                 </button>
               </div>
