@@ -22,6 +22,7 @@ export class MeetingRoomComponent implements OnInit {
   description: string;
   options = [];
   optionsIds = [];
+  votesResults = [];
   showVoteForm = false;
 
 
@@ -37,6 +38,7 @@ export class MeetingRoomComponent implements OnInit {
     this.owner = meeting.user.name;
     this.description = meeting.description;
     this.parseOptions(meeting.options)
+    this.votesResults = this.getVotes(this.options)
   }
 
   parseOptions(options: MeetingOption[]): void {
@@ -59,6 +61,30 @@ export class MeetingRoomComponent implements OnInit {
       .sort((a, b) => moment(a.startTime).isBefore(b.startTime) ? -1 : 1);
     this.options.forEach(() => this.choices.push(new FormControl()))
     this.optionsIds = this.options.map(option => option.id)
+  }
+
+  getVotes(options) {
+    let votersByOption = options.reduce((result, option) => {
+      result[option.id] = result[option.id] || []
+      result[option.id].push(...option.voters)
+      return result
+    }, {})
+    votersByOption = Object.keys(votersByOption).filter(key => votersByOption[key].length).reduce((result, key) => {
+      result[key] = votersByOption[key]
+      return result
+    }, {})
+    const votesResult = Object.keys(votersByOption).reduce((result, key) => {
+      votersByOption[key].forEach(voter => {
+        const index = result.findIndex(record => record.voter === voter)
+        if (index < 0) {
+          result.push({ voter, votes: [key] })
+        } else {
+          result[index].votes.push(key)
+        }
+      })
+      return result
+    }, [])
+    return votesResult
   }
 
   toggleVoteForm() {

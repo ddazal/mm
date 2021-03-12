@@ -49,7 +49,7 @@
                   <td>
                     <div class="is-flex is-align-items-center is-justify-content-space-between">
                       <span>Participantes</span>
-                      <button *ngIf="!showVoteForm" class="button is-small ml-2" (click)="toggleVoteForm()">
+                      <button *ngIf="!showVoteForm" class="button is-small ml-2" (click)="toggleVoteForm()" title="Añadir participante">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                           stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
                           stroke-linejoin="round">
@@ -79,6 +79,21 @@
                   </td>
                   <td *ngFor="let opt of options; index as i" class="has-text-centered">
                     <input type="checkbox" name="choices" [value]="opt.id" [formControl]="choices.controls[i]">
+                  </td>
+                </tr>
+                <tr *ngFor="let result of votesResults">
+                  <td>
+                    <div class="is-flex is-align-items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <circle cx="12" cy="7" r="4" />
+                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                      </svg>
+                      <span class="ml-2 is-size-7">{{ result.voter }}</span>
+                    </div>
+                  </td>
+                  <td *ngFor="let opt of options; index as i" class="has-text-centered">
+                    <input type="checkbox" [checked]="result.votes.includes(opt.id)" disabled>
                   </td>
                 </tr>
               </tbody>
