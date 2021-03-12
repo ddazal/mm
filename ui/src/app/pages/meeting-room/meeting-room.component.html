@@ -1,33 +1,35 @@
 <section class="section">
   <div class="container is-max-desktop">
     <div class="has-text-centered">
-      <h2 class="title is-size-4 is-size-3-desktop has-text-weight-bold">{{meetingTitle}}</h2>
-      <p class="subtitle">Por {{meetingOwner}}</p>
+      <h2 class="title is-size-4 is-size-3-desktop has-text-weight-bold">
+        {{ title }}
+      </h2>
+      <p class="subtitle">Por {{ owner }}</p>
     </div>
     <div class="mt-6">
       <p class="has-text-weight-bold is-size-5">Descripción</p>
-      <p *ngIf="meetingDescription">{{meetingDescription}}</p>
-      <p *ngIf="!meetingDescription">No existe una descripción para esta reunión</p>
+      <p *ngIf="description">{{ description }}</p>
+      <p *ngIf="!description">No existe una descripción para esta reunión</p>
     </div>
     <div class="mt-6">
       <div class="columns">
         <div class="column is-three-fifths is-offset-one-fifth">
           <p class="is-flex is-align-items-center is-justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="is-flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="is-flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <circle cx="12" cy="12" r="9" />
               <line x1="12" y1="8" x2="12.01" y2="8" />
               <polyline points="11 12 12 12 12 16 13 16" />
             </svg>
-            <span class="ml-1">Las horas se muestran en la zona horaria GMT{{timeZoneAbbr}} · {{timeZone}}</span>
+            <span class="ml-1">Las horas se muestran en la zona horaria GMT{{timezoneAbbr}} · {{timezone}}</span>
           </p>
           <div class="table-container">
             <table class="table is-bordered mt-4 is-fullwidth is-unselectable">
               <tbody>
                 <tr>
                   <td></td>
-                  <td *ngFor="let opt of meetingOptions" class="has-text-centered">
+                  <td *ngFor="let opt of options" class="has-text-centered">
                     <div class="is-flex is-flex-direction-column">
                       <span>{{opt.month}}</span>
                       <span class="has-text-weight-semibold	is-size-4">
@@ -48,18 +50,21 @@
                     <div class="is-flex is-align-items-center is-justify-content-space-between">
                       <span>Participantes</span>
                       <button *ngIf="!showVoteForm" class="button is-small ml-2" (click)="toggleVoteForm()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                          stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+                          stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                           <line x1="12" y1="5" x2="12" y2="19" />
                           <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
                       </button>
                     </div>
                   </td>
-                  <td *ngFor="let opt of meetingOptions" class="has-text-centered">
+                  <td *ngFor="let opt of options" class="has-text-centered">
                     <div class="is-flex is-align-items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0331f4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="#0331f4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M5 12l5 5l10 -10" />
                       </svg>
                       <span class="has-text-primary has-text-weight-bold">
@@ -72,7 +77,7 @@
                   <td>
                     <input type="text" class="input is-small" placeholder="Nombre" [formControl]="participant" required>
                   </td>
-                  <td *ngFor="let opt of meetingOptions; index as i" class="has-text-centered">
+                  <td *ngFor="let opt of options; index as i" class="has-text-centered">
                     <input type="checkbox" name="choices" [value]="opt.id" [formControl]="choices.controls[i]">
                   </td>
                 </tr>

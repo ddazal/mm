@@ -13,14 +13,15 @@ import { MeetingOptionService } from 'src/app/services/meeting-option.service';
 export class MeetingRoomComponent implements OnInit {
   participant = new FormControl('', Validators.required)
   choices = new FormArray([])
+  timezone = moment.tz.guess();
+  utcOffset = moment(new Date()).utcOffset()
+  timezoneAbbr = moment.tz.zone(this.timezone).abbr(this.utcOffset);
   feedbackMessage: string;
-  meetingTitle: string;
-  meetingOwner: string;
-  meetingDescription: string;
-  meetingOptions = [];
-  meetingOptionsIds = [];
-  timeZone: string;
-  timeZoneAbbr: string;
+  title: string;
+  owner: string;
+  description: string;
+  options = [];
+  optionsIds = [];
   showVoteForm = false;
 
 
@@ -31,19 +32,18 @@ export class MeetingRoomComponent implements OnInit {
   }
 
   setup() {
-    const { title, description, user, options } = this.authMeetingService.accessedMetting;
-    this.meetingTitle = title;
-    this.meetingOwner = user.name;
-    this.meetingDescription = description;
+    const meeting = this.authMeetingService.accessedMetting;
+    this.title = meeting.title;
+    this.owner = meeting.user.name;
+    this.description = meeting.description;
+    this.parseOptions(meeting.options)
+  }
 
-    const timeOffset = moment(new Date()).utcOffset()
-    this.timeZone = moment.tz.guess();
-    this.timeZoneAbbr = moment.tz.zone(this.timeZone).abbr(timeOffset)
-
-    this.meetingOptions = options
+  parseOptions(options: MeetingOption[]): void {
+    this.options = options
       .map(option => {
-        const startTime = moment.tz(option.start, this.timeZone).locale('es')
-        const endTime = moment.tz(option.end, this.timeZone).locale('es')
+        const startTime = moment.tz(option.start, this.timezone).locale('es')
+        const endTime = moment.tz(option.end, this.timezone).locale('es')
 
         return {
           ...option,
@@ -57,9 +57,8 @@ export class MeetingRoomComponent implements OnInit {
         }
       })
       .sort((a, b) => moment(a.startTime).isBefore(b.startTime) ? -1 : 1);
-
-    this.meetingOptions.forEach(() => this.choices.push(new FormControl()))
-    this.meetingOptionsIds = this.meetingOptions.map(option => option.id)
+    this.options.forEach(() => this.choices.push(new FormControl()))
+    this.optionsIds = this.options.map(option => option.id)
   }
 
   toggleVoteForm() {
@@ -71,7 +70,7 @@ export class MeetingRoomComponent implements OnInit {
 
   async saveChoices() {
     const choices = this.choices.value.reduce((ids, choice, index) => {
-      return choice ? [...ids, this.meetingOptionsIds[index]] : ids
+      return choice ? [...ids, this.optionsIds[index]] : ids
     }, [])
     if (!this.participant.valid || !choices.length) {
       this.feedbackMessage = 'Por favor escribe tu nombre y selecciona una o más opciones.'
