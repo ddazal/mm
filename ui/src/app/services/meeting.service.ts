@@ -53,7 +53,25 @@ export class MeetingService {
     return meetings[0];
   }
 
-  async updateMeeting(meetingId: string, update: object): Promise<void> {
-    await this.http.patch<void>(`${this.endpoint}/${meetingId}`, update, { headers: this.headers }).toPromise()
+  async getById(meetingId): Promise<Meeting> {
+    const filter = {
+      include: ['user', 'options']
+    };
+    const endpoint = `${this.endpoint}/${meetingId}`
+    const meeting = await this.http.get<Meeting>(endpoint, {
+      params: new HttpParams({
+        fromObject: {
+          filter: JSON.stringify(filter)
+        }
+      })
+    }).toPromise()
+    return meeting
+  }
+
+  async updateMeeting(meetingId: string, update: object): Promise<Meeting> {
+    const endpoint = `${this.endpoint}/${meetingId}`
+    await this.http.patch<void>(endpoint, update, { headers: this.headers }).toPromise()
+    const meeting = await this.getById(meetingId)
+    return meeting
   }
 }

@@ -1,0 +1,52 @@
+<div class="modal" [class.is-active]="active">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="card">
+      <div class="card-content">
+        <p class="has-text-weight-bold is-size-5 mb-2">
+          Editar información
+        </p>
+        <form [formGroup]="infoForm" class="mt-4">
+          <div class="field">
+            <label class="label has-text-grey-dark has-text-weight-medium" for="title">Título</label>
+            <div class="control">
+              <input id="title" formControlName="title" class="input"
+                [class.is-danger]="title.invalid && (title.dirty || title.touched)" type="text"
+                placeholder="Introduce el título" autocomplete="off" required />
+            </div>
+            <p *ngIf="title.invalid && (title.dirty || title.touched)" class="help is-danger">
+              Este campo es obligatorio
+            </p>
+          </div>
+          <div class="field">
+            <label class="label has-text-grey-dark has-text-weight-medium" id="description">Descripción</label>
+            <div class="control">
+              <textarea id="description" formControlName="description" class="textarea" placeholder="Añade una nota (opcional)"></textarea>
+            </div>
+          </div>
+          <div class="field is-grouped">
+            <div class="control">
+              <button
+                class="button font-montserrat"
+                (click)="close()"
+              >
+                Cancelar
+              </button>
+            </div>
+            <div class="control">
+              <button
+                class="button is-primary font-montserrat"
+                [disabled]="!infoFormIsValid"
+                [class.is-loading]="loading"
+                (click)="update()"
+              >
+                Editar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-close is-large" aria-label="close" (click)="close()"></div>
+</div>

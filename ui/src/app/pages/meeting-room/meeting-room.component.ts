@@ -23,6 +23,7 @@ export class MeetingRoomComponent implements OnInit {
   meeting: Meeting;
   feedbackMessage: string;
   isAdminView: boolean;
+  
 
   options = [];
   optionsIds = [];
@@ -30,6 +31,8 @@ export class MeetingRoomComponent implements OnInit {
   showVoteForm = false;
   saving = false;
   deactivating = false;
+  updating = false;
+  activeModalUpdate = false;
 
 
   constructor(
@@ -110,18 +113,26 @@ export class MeetingRoomComponent implements OnInit {
 
   async closeVoting(): Promise<void> {
     this.toggleFlag('deactivating')
-    await this.meetingService.updateMeeting(this.meeting.id, { isActive: false })
-    this.meeting.isActive = false
+    const meeting = await this.meetingService.updateMeeting(this.meeting.id, { isActive: false })
+    this.meeting = meeting
     this.toggleFlag('deactivating')
   }
 
   async openVoting(): Promise<void> {
     this.toggleFlag('deactivating')
-    await this.meetingService.updateMeeting(this.meeting.id, { isActive: true })
-    this.meeting.isActive = true
+    const meeting = await this.meetingService.updateMeeting(this.meeting.id, { isActive: true })
+    this.meeting = meeting
     this.toggleFlag('deactivating')
   }
 
+  async updateMeetingInfo(data: { title: string, description: string }): Promise<void> {
+    this.toggleFlag('updating')
+    const meeting = await this.meetingService.updateMeeting(this.meeting.id, data)
+    this.meeting = meeting
+    this.toggleFlag('updating')
+    this.toggleFlag('activeModalUpdate')
+  }
+  
   async saveChoices(): Promise<void> {
     const choices = this.choices.value.reduce((ids, choice, index) => {
       return choice ? [...ids, this.optionsIds[index]] : ids;
@@ -140,5 +151,4 @@ export class MeetingRoomComponent implements OnInit {
       this.feedbackMessage = 'Algo salió mal';
     }
   }
-
 }

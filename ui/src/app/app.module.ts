@@ -13,6 +13,8 @@ import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { MeetingCheckinComponent } from './pages/meeting-checkin/meeting-checkin.component';
 import { MeetingRoomComponent } from './pages/meeting-room/meeting-room.component';
 import { MeetingCheckoutComponent } from './pages/meeting-checkout/meeting-checkout.component';
+import { MeetingRoomInfoComponent } from './components/meeting-room-info/meeting-room-info.component';
+import { ModalUpdateMeetingInfoComponent } from './components/modal-update-meeting-info/modal-update-meeting-info.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { MeetingCheckoutComponent } from './pages/meeting-checkout/meeting-check
     ScheduleComponent,
     MeetingCheckinComponent,
     MeetingRoomComponent,
-    MeetingCheckoutComponent
+    MeetingCheckoutComponent,
+    MeetingRoomInfoComponent,
+    ModalUpdateMeetingInfoComponent
   ],
   imports: [
     CommonModule,

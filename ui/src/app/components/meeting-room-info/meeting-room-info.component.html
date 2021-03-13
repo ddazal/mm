@@ -1,0 +1,40 @@
+<div class="has-text-centered">
+  <h2 class="title is-size-4 is-size-3-desktop has-text-weight-bold">
+    {{ meeting.title }}
+  </h2>
+  <p class="subtitle">Por {{ meeting.user.name }}</p>
+</div>
+<div class="mt-6">
+  <p class="has-text-weight-bold is-size-5 mb-2">
+    Descripción
+  </p>
+  <p>
+    <span *ngIf="meeting.description">{{ meeting.description }}</span>
+    <span *ngIf="!meeting.description">
+      No existe una descripción para esta reunión
+    </span>
+  </p>
+  <div *ngIf="showAdmin" class="mt-4">
+    <p class="has-text-weight-bold is-size-5 mb-2">
+      Acciones
+    </p>
+    <div class="buttons">
+      <button class="button is-light is-small font-montserrat has-text-weight-bold" (click)="showUpdateModal()">Editar información</button>
+      <button class="button is-light is-small font-montserrat has-text-weight-bold">Invitar</button>
+      <button *ngIf="meeting.isActive"
+        class="button is-light is-small font-montserrat has-text-weight-bold"
+        [class.is-loading]="loading"
+        (click)="closeVoting()"
+      >
+        Cerrar votación
+      </button>
+      <button *ngIf="!meeting.isActive"
+        class="button is-light is-small font-montserrat has-text-weight-bold"
+        [class.is-loading]="loading"
+        (click)="openVoting()"
+      >
+        Abrir votación
+      </button>
+    </div>
+  </div>
+</div>
