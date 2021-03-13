@@ -93,7 +93,7 @@ export class MeetingVotesResultsComponent implements OnInit {
       return;
     }
     this.feedbackMessage = '';
-    this.onSaveVotes.emit({ votes, participant: this.participant.value });
+    this.savedVotes.emit({ votes, participant: this.participant.value });
   }
 
 }
