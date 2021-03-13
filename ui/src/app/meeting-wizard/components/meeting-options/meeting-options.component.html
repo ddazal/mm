@@ -1,2 +1,10 @@
 <h1 class="title is-size-3 is-size-2-desktop has-text-centered has-text-weight-bold has-text-primary">Crea las opciones</h1>
-<full-calendar [options]="calendarOptions"></full-calendar>
+<full-calendar #calendar [options]="calendarOptions"></full-calendar>
+<div *ngFor="let event of events" [id]="event.id" class="is-hidden">
+  <button
+    class="button is-small is-danger"
+    (click)="deleteEvent(event.id)"
+  >
+    Eliminar
+  </button>
+</div>
