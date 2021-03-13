@@ -13,9 +13,12 @@ export class MeetingRoomInfoComponent implements OnInit {
   @Output() closedVoting = new EventEmitter<void>();
   @Output() openedVoting = new EventEmitter<void>();
 
+  shareURL: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.shareURL = window.location.origin + '/reu/' + this.meeting.publicId
   }
 
   showUpdateModal(): void {

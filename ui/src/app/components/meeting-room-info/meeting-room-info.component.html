@@ -20,7 +20,6 @@
     </p>
     <div class="buttons">
       <button class="button is-light is-small font-montserrat has-text-weight-bold" (click)="showUpdateModal()">Editar información</button>
-      <button class="button is-light is-small font-montserrat has-text-weight-bold">Invitar</button>
       <button *ngIf="meeting.isActive"
         class="button is-light is-small font-montserrat has-text-weight-bold"
         [class.is-loading]="loading"
@@ -35,6 +34,25 @@
       >
         Abrir votación
       </button>
+    </div>
+    <p class="has-text-weight-bold is-size-5 mb-2 mt-4">
+      Invitar
+    </p>
+    <div class="columns">
+      <div class="column is-half">
+        <div class="field">
+          <label class="label">Enlace</label>
+          <div class="control">
+            <input type="text" class="input is-small" [value]="shareURL" readonly>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Código de acceso</label>
+          <div class="control">
+            <input type="text" class="input is-small" [value]="meeting.accessCode" readonly>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
