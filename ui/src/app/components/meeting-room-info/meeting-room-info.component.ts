@@ -18,7 +18,7 @@ export class MeetingRoomInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.shareURL = window.location.origin + '/reu/' + this.meeting.publicId
+    this.shareURL = window.location.origin + '/reu/' + this.meeting.publicId;
   }
 
   showUpdateModal(): void {

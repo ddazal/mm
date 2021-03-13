@@ -67,11 +67,11 @@ export class MeetingWizardComponent implements OnInit {
       const meetingData = this.wizardService.getData();
       const meeting = await this.wizardService.scheduleMeeting(meetingData);
       const options = await this.wizardService.addMeetingOptions(meeting.id, meetingData.options);
-      const redirectUrl = '/reu/' + meeting.privateId
-      this.authMeetingService.redirectUrl = redirectUrl
-      this.authMeetingService.meetingAccessId = meeting.privateId
-      this.authMeetingService.verifyAccessCode(meeting.accessCode)
-      return
+      const redirectUrl = '/reu/' + meeting.privateId;
+      this.authMeetingService.redirectUrl = redirectUrl;
+      this.authMeetingService.meetingAccessId = meeting.privateId;
+      this.authMeetingService.verifyAccessCode(meeting.accessCode);
+      return;
     }
 
     this.currentStepIndex++;
