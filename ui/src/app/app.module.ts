@@ -15,6 +15,7 @@ import { MeetingRoomComponent } from './pages/meeting-room/meeting-room.componen
 import { MeetingCheckoutComponent } from './pages/meeting-checkout/meeting-checkout.component';
 import { MeetingRoomInfoComponent } from './components/meeting-room-info/meeting-room-info.component';
 import { ModalUpdateMeetingInfoComponent } from './components/modal-update-meeting-info/modal-update-meeting-info.component';
+import { MeetingVotesResultsComponent } from './components/meeting-votes-results/meeting-votes-results.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ModalUpdateMeetingInfoComponent } from './components/modal-update-meeti
     MeetingRoomComponent,
     MeetingCheckoutComponent,
     MeetingRoomInfoComponent,
-    ModalUpdateMeetingInfoComponent
+    ModalUpdateMeetingInfoComponent,
+    MeetingVotesResultsComponent
   ],
   imports: [
     CommonModule,

@@ -9,9 +9,9 @@ export class MeetingRoomInfoComponent implements OnInit {
   @Input() meeting: Meeting;
   @Input() showAdmin: boolean;
   @Input() loading: boolean;
-  @Output() showUpdateModalEvent = new EventEmitter<void>()
-  @Output() closeVotingEvent = new EventEmitter<void>()
-  @Output() openVotingEvent = new EventEmitter<void>()
+  @Output() showedUpdateModal = new EventEmitter<void>();
+  @Output() closedVoting = new EventEmitter<void>();
+  @Output() openedVoting = new EventEmitter<void>();
 
   constructor() { }
 
@@ -19,15 +19,15 @@ export class MeetingRoomInfoComponent implements OnInit {
   }
 
   showUpdateModal(): void {
-    this.showUpdateModalEvent.emit();
+    this.showedUpdateModal.emit();
   }
 
-  closeVoting() {
-    this.closeVotingEvent.emit();
+  closeVoting(): void {
+    this.closedVoting.emit();
   }
-  
-  openVoting() {
-    this.openVotingEvent.emit();
+
+  openVoting(): void {
+    this.openedVoting.emit();
   }
 
 }

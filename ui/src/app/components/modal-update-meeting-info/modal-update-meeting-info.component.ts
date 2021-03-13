@@ -10,8 +10,8 @@ export class ModalUpdateMeetingInfoComponent implements OnInit {
   @Input() meeting: Meeting;
   @Input() active: boolean;
   @Input() loading: boolean;
-  @Output() closeEvent = new EventEmitter<void>()
-  @Output() updateEvent = new EventEmitter<{ title: string, description: string }>()
+  @Output() closed = new EventEmitter<void>();
+  @Output() updated = new EventEmitter<{ title: string, description: string }>();
 
   infoForm: FormGroup;
   constructor() { }
@@ -20,30 +20,30 @@ export class ModalUpdateMeetingInfoComponent implements OnInit {
     this.infoForm = new FormGroup({
       title: new FormControl(this.meeting.title, Validators.required),
       description: new FormControl(this.meeting.description)
-    })
+    });
   }
 
   close(): void {
-    this.closeEvent.emit()
+    this.closed.emit();
   }
 
-  update() {
-    this.updateEvent.emit({
+  update(): void {
+    this.updated.emit({
       title: this.title.value,
       description: this.description.value
-    })
+    });
   }
 
   get title(): AbstractControl {
-    return this.infoForm.get('title')
+    return this.infoForm.get('title');
   }
 
   get description(): AbstractControl {
-    return this.infoForm.get('description')
+    return this.infoForm.get('description');
   }
 
   get infoFormIsValid(): boolean {
-    return !this.infoForm.invalid
+    return !this.infoForm.invalid;
   }
 
 }

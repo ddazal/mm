@@ -1,0 +1,106 @@
+<p class="is-flex is-align-items-center is-justify-content-center">
+  <svg xmlns="http://www.w3.org/2000/svg" class="is-flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"
+    stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <circle cx="12" cy="12" r="9" />
+    <line x1="12" y1="8" x2="12.01" y2="8" />
+    <polyline points="11 12 12 12 12 16 13 16" />
+  </svg>
+  <span class="ml-1">Las opciones se muestran en la zona horaria GMT{{timezoneAbbr}} · {{timezone}}</span>
+</p>
+<div class="table-container">
+  <table class="table is-bordered mt-4 is-fullwidth is-unselectable">
+    <tbody>
+      <tr>
+        <td></td>
+        <td *ngFor="let opt of options" class="has-text-centered">
+          <div class="is-flex is-flex-direction-column">
+            <span>{{opt.month}}</span>
+            <span class="has-text-weight-semibold	is-size-4">
+              {{opt.dayOfMonth}}
+            </span>
+            <span class="is-uppercase is-size-7 has-text-weight-medium">
+              {{opt.dayOfWeek}}
+            </span>
+            <div class="mt-2 is-flex is-flex-direction-column is-size-7">
+              <span>{{ opt.startHour }}</span>
+              <span>{{ opt.endHour }}</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="is-flex is-align-items-center is-justify-content-space-between">
+            <span>Participantes</span>
+            <button *ngIf="!showVoteForm && meeting.isActive" class="button is-small ml-2" (click)="showVoteForm = true" title="Añadir participante">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </button>
+          </div>
+        </td>
+        <td *ngFor="let opt of options">
+          <div class="is-flex is-align-items-center is-justify-content-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="#0331f4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5 12l5 5l10 -10" />
+            </svg>
+            <span class="has-text-primary has-text-weight-bold">
+              {{ opt.votes }}
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="showVoteForm">
+        <td>
+          <input type="text" class="input is-small" placeholder="Nombre" [formControl]="participant" required>
+        </td>
+        <td *ngFor="let opt of options; index as i" class="has-text-centered">
+          <input type="checkbox" name="choices" [value]="opt.id" [formControl]="choices.controls[i]">
+        </td>
+      </tr>
+      <tr *ngFor="let result of results">
+        <td>
+          <div class="is-flex is-align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <circle cx="12" cy="7" r="4" />
+              <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+            </svg>
+            <span class="ml-2 is-size-7">{{ result.voter }}</span>
+          </div>
+        </td>
+        <td *ngFor="let opt of options; index as i" class="has-text-centered">
+          <input type="checkbox" [checked]="result.votes.includes(opt.id)" disabled>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="showVoteForm" class="is-flex is-justify-content-flex-end mt-3">
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button font-montserrat" (click)="showVoteForm = false; feedbackMessage= ''">
+        Cancelar
+      </button>
+    </div>
+    <div class="control">
+      <button
+        class="button is-danger font-montserrat"
+        [class.is-loading]="loading"
+        (click)="saveChoices()"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</div>
+<p *ngIf="feedbackMessage" class="help is-danger has-text-right">
+  {{feedbackMessage}}
+</p>
