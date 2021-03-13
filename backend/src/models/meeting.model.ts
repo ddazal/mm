@@ -39,6 +39,12 @@ export class Meeting extends Entity {
   guests?: string[];
 
   @property({
+    type: 'boolean',
+    default: true,
+  })
+  isActive?: boolean;
+
+  @property({
     type: 'string',
   })
   accessCode?: string;
