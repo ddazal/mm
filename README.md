@@ -14,6 +14,6 @@ $ cd mm
 $ docker-compose up
 ```
 
-Aplicación web: [http://localhost:4200](http://localhost:4200)
-API Explorer: [http://localhost:3000](http://localhost:3000)
-Cliente email: [http://localhost:8081](http://localhost:8081)
+- Aplicación web: [http://localhost:4200](http://localhost:4200)
+- API Explorer: [http://localhost:3000](http://localhost:3000)
+- Cliente email: [http://localhost:8081](http://localhost:8081)
