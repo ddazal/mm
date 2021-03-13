@@ -10,6 +10,8 @@ import { StepComponent } from '../../models/step-component.model';
 import { StepService } from '../../services/step.service';
 import { MeetingData } from '../../models/meeting-data.model';
 import { WizardService } from '../../../services/wizard.service';
+import { Router } from '@angular/router';
+import { AuthMeetingService } from 'src/app/services/auth-meeting.service';
 
 @Component({
   selector: 'app-meeting-wizard',
@@ -29,7 +31,9 @@ export class MeetingWizardComponent implements OnInit {
   constructor(
     private stepService: StepService,
     private wizardService: WizardService,
-    private cfr: ComponentFactoryResolver
+    private cfr: ComponentFactoryResolver,
+    private authMeetingService: AuthMeetingService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -63,9 +67,11 @@ export class MeetingWizardComponent implements OnInit {
       const meetingData = this.wizardService.getData();
       const meeting = await this.wizardService.scheduleMeeting(meetingData);
       const options = await this.wizardService.addMeetingOptions(meeting.id, meetingData.options);
-      this.loading = false;
-      // TODO: redirect to muro page
-      return;
+      const redirectUrl = '/reu/' + meeting.privateId
+      this.authMeetingService.redirectUrl = redirectUrl
+      this.authMeetingService.meetingAccessId = meeting.privateId
+      this.authMeetingService.verifyAccessCode(meeting.accessCode)
+      return
     }
 
     this.currentStepIndex++;
