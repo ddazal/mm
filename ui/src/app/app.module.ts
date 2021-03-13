@@ -12,7 +12,7 @@ import { MeetingWizardModule } from './meeting-wizard/meeting-wizard.module';
 import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { MeetingCheckinComponent } from './pages/meeting-checkin/meeting-checkin.component';
 import { MeetingRoomComponent } from './pages/meeting-room/meeting-room.component';
-import { MeetingCheckoutComponent } from './pages/meeting-checkout/meeting-checkout.component'
+import { MeetingCheckoutComponent } from './pages/meeting-checkout/meeting-checkout.component';
 
 @NgModule({
   declarations: [

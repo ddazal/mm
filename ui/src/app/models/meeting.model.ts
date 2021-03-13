@@ -1,5 +1,5 @@
-import { MeetingOption } from "../meeting-wizard/models/meeting-option.model";
-import { User } from "./user.model";
+import { MeetingOption } from '../meeting-wizard/models/meeting-option.model';
+import { User } from './user.model';
 
 export interface Meeting {
   id?: string;
@@ -10,5 +10,6 @@ export interface Meeting {
   userId: string;
   accessCode: string;
   user?: User;
-  options?: MeetingOption[]
+  options?: MeetingOption[];
+  isActive?: boolean;
 }

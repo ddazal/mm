@@ -12,6 +12,7 @@ export class AuthMeetingService {
   redirectUrl: string;
   meetingAccessId: string;
   accessedMetting: Meeting;
+  asAdmin: boolean;
 
   constructor(private router: Router, private http: HttpClient, private meetingService: MeetingService) { }
 
@@ -23,12 +24,13 @@ export class AuthMeetingService {
     if (password === meeting.accessCode) {
       this.accessedMetting = meeting;
       this.isLoggedIn = true;
+      this.asAdmin = meeting.privateId === this.meetingAccessId;
       return this.router.navigateByUrl(this.redirectUrl);
     }
     return false;
   }
 
-  reset() {
+  reset(): void {
     this.isLoggedIn = false;
     this.redirectUrl = '';
     this.meetingAccessId = '';

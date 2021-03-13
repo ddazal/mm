@@ -10,6 +10,7 @@ import { MeetingOption } from '../meeting-wizard/models/meeting-option.model';
 })
 export class MeetingService {
   endpoint = 'http://localhost:3000/meetings';
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
@@ -26,10 +27,10 @@ export class MeetingService {
     const body = {
       start: option.start,
       end: option.end
-    }
+    };
     return this.http.post<MeetingOption>(`${this.endpoint}/${meetingId}/options`, body, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    }).toPromise()
+      headers: this.headers
+    }).toPromise();
   }
 
   async getMeetingByPublicOrPrivateId(accessId: string): Promise<Meeting> {
@@ -50,5 +51,9 @@ export class MeetingService {
       })
     }).toPromise();
     return meetings[0];
+  }
+
+  async updateMeeting(meetingId: string, update: object): Promise<void> {
+    await this.http.patch<void>(`${this.endpoint}/${meetingId}`, update, { headers: this.headers }).toPromise()
   }
 }

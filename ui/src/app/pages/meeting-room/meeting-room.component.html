@@ -2,18 +2,39 @@
   <div class="container is-max-desktop">
     <div class="has-text-centered">
       <h2 class="title is-size-4 is-size-3-desktop has-text-weight-bold">
-        {{ title }}
+        {{ meeting.title }}
       </h2>
-      <p class="subtitle">Por {{ owner }}</p>
+      <p class="subtitle">Por {{ meeting.user.name }}</p>
     </div>
     <div class="mt-6">
       <p class="has-text-weight-bold is-size-5">Descripción</p>
-      <p *ngIf="description">{{ description }}</p>
-      <p *ngIf="!description">No existe una descripción para esta reunión</p>
+      <p *ngIf="meeting.description">{{ meeting.description }}</p>
+      <p *ngIf="!meeting.description">
+        No existe una descripción para esta reunión
+      </p>
+      <div class="mt-4" *ngIf="isAdminView">
+        <button *ngIf="meeting.isActive"
+          class="button is-danger"
+          [class.is-loading]="deactivating"
+          (click)="closeVoting()"
+        >
+          Cerrar votación
+        </button>
+        <button *ngIf="!meeting.isActive"
+          class="button is-danger"
+          [class.is-loading]="deactivating"
+          (click)="openVoting()"
+        >
+          Abrir votación
+        </button>
+      </div>
     </div>
     <div class="mt-6">
       <div class="columns">
-        <div class="column is-three-fifths is-offset-one-fifth">
+        <div class="column is-8 is-offset-2">
+          <p *ngIf="!meeting.isActive" class="mb-3 has-text-centered has-text-danger">
+            Esta votación se ha cerrado
+          </p>
           <p class="is-flex is-align-items-center is-justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="is-flex-shrink-0" width="20" height="20" viewBox="0 0 24 24"
               stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -22,7 +43,7 @@
               <line x1="12" y1="8" x2="12.01" y2="8" />
               <polyline points="11 12 12 12 12 16 13 16" />
             </svg>
-            <span class="ml-1">Las horas se muestran en la zona horaria GMT{{timezoneAbbr}} · {{timezone}}</span>
+            <span class="ml-1">Las opciones se muestran en la zona horaria GMT{{timezoneAbbr}} · {{timezone}}</span>
           </p>
           <div class="table-container">
             <table class="table is-bordered mt-4 is-fullwidth is-unselectable">
@@ -49,7 +70,7 @@
                   <td>
                     <div class="is-flex is-align-items-center is-justify-content-space-between">
                       <span>Participantes</span>
-                      <button *ngIf="!showVoteForm" class="button is-small ml-2" (click)="toggleVoteForm()" title="Añadir participante">
+                      <button *ngIf="!showVoteForm && meeting.isActive" class="button is-small ml-2" (click)="toggleVoteForm()" title="Añadir participante">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                           stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
                           stroke-linejoin="round">
@@ -60,8 +81,8 @@
                       </button>
                     </div>
                   </td>
-                  <td *ngFor="let opt of options" class="has-text-centered">
-                    <div class="is-flex is-align-items-center">
+                  <td *ngFor="let opt of options">
+                    <div class="is-flex is-align-items-center is-justify-content-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="#0331f4" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -107,7 +128,7 @@
                 </button>
               </div>
               <div class="control">
-                <button class="button is-danger font-montserrat" [class.is-loading]="isSavingVotes" (click)="saveChoices()">
+                <button class="button is-danger font-montserrat" [class.is-loading]="saving" (click)="saveChoices()">
                   Guardar
                 </button>
               </div>

@@ -62,7 +62,7 @@ export class MeetingWizardComponent implements OnInit {
       this.loading = true;
       const meetingData = this.wizardService.getData();
       const meeting = await this.wizardService.scheduleMeeting(meetingData);
-      const options = await this.wizardService.addMeetingOptions(meeting.id, meetingData.options)
+      const options = await this.wizardService.addMeetingOptions(meeting.id, meetingData.options);
       this.loading = false;
       // TODO: redirect to muro page
       return;

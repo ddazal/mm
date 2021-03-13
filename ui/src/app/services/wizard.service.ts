@@ -34,8 +34,8 @@ export class WizardService {
     return meeting;
   }
 
-  async addMeetingOptions(meetingId: string, options: MeetingOption[]) {
-    const opts = options.map(option => this.meetingService.createMeetingOption(meetingId, option))
-    return Promise.all(opts)
+  async addMeetingOptions(meetingId: string, options: MeetingOption[]): Promise<MeetingOption[]> {
+    const opts = options.map(option => this.meetingService.createMeetingOption(meetingId, option));
+    return Promise.all(opts);
   }
 }

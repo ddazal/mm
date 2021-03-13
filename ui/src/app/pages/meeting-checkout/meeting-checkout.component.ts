@@ -17,7 +17,7 @@ export class MeetingCheckoutComponent implements OnInit {
       this.router.navigateByUrl('/');
     }
     this.meeting = this.authMeetingService.accessedMetting;
-    this.authMeetingService.reset()
+    this.authMeetingService.reset();
   }
 
 }
