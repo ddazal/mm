@@ -66,7 +66,7 @@ export class MeetingOptionsComponent implements OnInit, StepComponent {
 
   clickedEvent({ event }): void {
     const template = document.getElementById(event.id);
-    event.extendedProps.tippy.setContent(template.innerHTML);
+    event.extendedProps.tippy.setContent(template.firstChild);
   }
 
   createEvent({ dateStr }): void {
@@ -86,6 +86,7 @@ export class MeetingOptionsComponent implements OnInit, StepComponent {
   deleteEvent(id: string): void {
     const deletedEvent = this.calendar.getEventById(id);
     const eventIndex = this.findEventIndex(id);
+    deletedEvent.extendedProps.tippy.unmount();
     deletedEvent.remove();
     this.events.splice(eventIndex, 1);
     this.updateWizardData();
