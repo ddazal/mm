@@ -16,7 +16,7 @@ export class AuthMeetingService {
 
   constructor(private router: Router, private http: HttpClient, private meetingService: MeetingService) { }
 
-  async verifyAccessCode(password: string): Promise<boolean> {
+  async verifyAccessCode(password: string, state = {}): Promise<boolean> {
     const meeting = await this.meetingService.getMeetingByPublicOrPrivateId(this.meetingAccessId);
     if (!meeting) {
       return false;
@@ -25,7 +25,7 @@ export class AuthMeetingService {
       this.accessedMetting = meeting;
       this.isLoggedIn = true;
       this.asAdmin = meeting.privateId === this.meetingAccessId;
-      return this.router.navigateByUrl(this.redirectUrl);
+      return this.router.navigateByUrl(this.redirectUrl, { state });
     }
     return false;
   }

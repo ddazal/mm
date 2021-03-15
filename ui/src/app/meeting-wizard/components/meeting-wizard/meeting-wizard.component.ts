@@ -70,7 +70,7 @@ export class MeetingWizardComponent implements OnInit {
       const redirectUrl = '/reu/' + meeting.privateId;
       this.authMeetingService.redirectUrl = redirectUrl;
       this.authMeetingService.meetingAccessId = meeting.privateId;
-      this.authMeetingService.verifyAccessCode(meeting.accessCode);
+      this.authMeetingService.verifyAccessCode(meeting.accessCode, { success: true });
       return;
     }
 

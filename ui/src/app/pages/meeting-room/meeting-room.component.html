@@ -10,6 +10,10 @@
 <!-- Page content -->
 <section class="section">
   <div class="container is-max-desktop">
+    <div *ngIf="notify" class="notification is-info is-light">
+      <button class="delete" (click)="notify = false"></button>
+      La reunión se ha programado con éxito. Revisa tu correo para más detalles.
+    </div>
     <app-meeting-room-info
       [meeting]="meeting"
       [showAdmin]="isAdminView"

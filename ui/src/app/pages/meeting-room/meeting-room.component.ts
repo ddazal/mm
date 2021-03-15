@@ -17,6 +17,7 @@ export class MeetingRoomComponent implements OnInit {
   deactivating = false;
   updating = false;
   activeModalUpdate = false;
+  notify: boolean;
 
 
   constructor(
@@ -24,7 +25,10 @@ export class MeetingRoomComponent implements OnInit {
     private meetingOptionService: MeetingOptionService,
     private meetingService: MeetingService,
     private router: Router
-  ) { }
+  ) {
+    const { state } = this.router.getCurrentNavigation().extras
+    this.notify = state && state.success
+  }
 
   ngOnInit(): void {
     this.setup();
