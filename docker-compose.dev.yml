@@ -4,12 +4,13 @@ services:
   web:
     build:
       context: ./ui
-      dockerfile: Dockerfile.production
     container_name: mm_web
     networks:
       - frontend
     ports:
-      - "8080:80"
+      - "4200:4200"
+    volumes: 
+      - ./ui:/usr/src/app
   api:
     build:
       context: './backend'
