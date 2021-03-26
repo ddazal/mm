@@ -6,7 +6,7 @@ No hace falta registrarse para poder crear una reunión e invitar a varios parti
 
 ## develop / preview
 
-Es necesario tener instalado `docker` y `docker-compose` instalado.
+Es necesario tener `docker` y `docker-compose` instalado.
 
 ```sh
 $ git clone git@github.com:ddazal/mm.git
