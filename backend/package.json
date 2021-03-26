@@ -40,12 +40,6 @@
   },
   "author": "David Daza <03dazal@gmail.com>",
   "license": "",
-  "files": [
-    "README.md",
-    "dist",
-    "src",
-    "!*/__tests__"
-  ],
   "dependencies": {
     "@loopback/boot": "^3.0.2",
     "@loopback/core": "^2.11.0",
