@@ -23,6 +23,8 @@ import {
 import {UserRepository} from '../repositories';
 import {EmailService} from '../services';
 
+const meetingRoomBaseURL = `${process.env.WEBAPP_URI}/reu`
+
 export class UserMeetingController {
   constructor(
     @repository(UserRepository) protected userRepository: UserRepository,
@@ -76,9 +78,9 @@ export class UserMeetingController {
     meeting.accessCode = nanoid(12);
     try {
       const user = await this.userRepository.findById(id);
-      await this.emailService.sendMeetingDetailsEmail('http://localhost:4200/reu', user, meeting);
+      await this.emailService.sendMeetingDetailsEmail(meetingRoomBaseURL, user, meeting);
       if (meeting.guests?.length) {
-        await this.emailService.sendMeetingInvitationEmail('http://localhost:4200/reu', user, meeting);
+        await this.emailService.sendMeetingInvitationEmail(meetingRoomBaseURL, user, meeting);
       }
     } catch (error) {
       // Log error to an application monitory system

@@ -26,6 +26,7 @@ services:
       SMTP_HOST: mailhog
       SENDER_FROM: 'test@mail.com'
       MONGO_URI: mongodb://db:27017/meeting-o-matic
+      WEBAPP_URI: http://localhost:8080
   db:
     image: mongo:4.4.3-bionic
     container_name: mm_db
